@@ -27,7 +27,7 @@ public class Mentee {
 
     private String region;
 
-    private Integer rank;
+    private Integer menteeRank;
 
     private Integer count; //멘토링 횟수
     private Integer getReviewCount; //받은 리뷰 개수

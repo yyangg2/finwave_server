@@ -64,4 +64,13 @@ public class MentorRepository {
         return em.createQuery("select r from Review r where type(r as Mentor).reviewMentor.id = mentor.id", ReviewMentor.class)
                 .getResultList();
     }
+
+    public Mentor findByEmailAndPassword(String email, String password) {
+        List<Mentor> mentors = em.createQuery("SELECT m FROM Mentor m WHERE m.email = :email AND m.password = :password", Mentor.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getResultList();
+
+        return mentors.isEmpty() ? null : mentors.get(0);
+    }
 }

@@ -35,7 +35,7 @@ public class Mentor {
     private String field2;
     private String field3;
 
-    private Integer rank;
+    private Integer mentorRank;
 
     private Integer count; //멘토링 횟수
     private Integer getReviewCount; //받은 리뷰 개수
