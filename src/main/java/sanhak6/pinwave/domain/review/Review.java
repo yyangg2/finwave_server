@@ -38,17 +38,37 @@ public abstract class Review {
     @JoinColumn(name = "mentor_id")
     private Mentor reviewMentor;
 
-    //==생성 메서드==//
-/*    public static ReviewMentor createReviewMentor(Mentor mentor, Mentee mentee) {
+
+    //==생성 메서드==// (멘토 리뷰)
+    public static ReviewMentor createReviewMentor(Mentor mentor, Mentee mentee, float star, String content) {
         ReviewMentor reviewMentor = new ReviewMentor();
         reviewMentor.setReviewMentor(mentor);
+        reviewMentor.setReviewMentee(mentee);
 
+        reviewMentor.setStar(star);
+        reviewMentor.setContent(content);
+        reviewMentor.setCreateDate(LocalDateTime.now());
+
+        mentor.addDoStock();
+        mentee.addGetStock();
+
+        return reviewMentor;
     }
 
-    public static ReviewMentee createReviewMentee(Mentee mentee, Mentor mentor) {
+    //==생성 메서드==// (멘티 리뷰)
+    public static ReviewMentee createReviewMentee(Mentor mentor, Mentee mentee, float star, String content) {
         ReviewMentee reviewMentee = new ReviewMentee();
+        reviewMentee.setReviewMentor(mentor);
         reviewMentee.setReviewMentee(mentee);
 
-    }*/
+        reviewMentee.setStar(star);
+        reviewMentee.setContent(content);
+        reviewMentee.setCreateDate(LocalDateTime.now());
+
+        mentee.addDoStock();
+        mentor.addGetStock();
+
+        return reviewMentee;
+    }
 
 }

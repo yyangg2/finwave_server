@@ -1,4 +1,4 @@
-package sanhak6.pinwave.service.mypage;
+package sanhak6.pinwave.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,19 +18,25 @@ public class MentorService {
     /**
      * 회원 가입
      */
-    @Transactional
     public Long join(Mentor mentor) {
 
-        validateDuplicateMentor(mentor);
+        validateDuplicateMentor(mentor); //중복 회원 검증
         mentorRepository.save(mentor);
         return mentor.getId();
     }
 
     private void validateDuplicateMentor(Mentor mentor) {
-        List<Mentor> findMentors = mentorRepository.findByName(mentor.getUser().getEmail());
+        List<Mentor> findMentors = mentorRepository.findByEmail(mentor.getEmail());
         if (!findMentors.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
+    }
+
+    //변경 감지 사용
+    public void updateMentor(Long mentorId, String introduce) {
+        Mentor mentor = mentorRepository.findOne(mentorId);
+
+        mentor.setIntroduce(introduce);
     }
 
     //전체 조회
@@ -38,6 +44,5 @@ public class MentorService {
 
     //단건 조회
     public Mentor findOne(Long mentorId) { return mentorRepository.findOne(mentorId); }
-
 
 }

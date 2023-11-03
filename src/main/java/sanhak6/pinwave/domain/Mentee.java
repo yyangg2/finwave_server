@@ -5,6 +5,7 @@ import lombok.Setter;
 import sanhak6.pinwave.domain.review.Review;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,15 @@ public class Mentee {
     private Integer rank;
 
     private Integer count; //멘토링 횟수
+    private Integer getReviewCount; //받은 리뷰 개수
+    private Integer doReviewCount; //해준 리뷰 개수
+
+    private String name; //실명
+    private String email; //이메일
+    private String password; //비밀번호
+//    private String gender;
+    private String phone;
+    private LocalDateTime createDate;
 
     @Enumerated(EnumType.STRING)
     private Level KnowLevel; //ENUM [HIGH, MEDIUM, LOW]
@@ -36,8 +46,11 @@ public class Mentee {
     @Enumerated(EnumType.STRING)
     private Level AssetLevel; //ENUM [HIGH, MEDIUM, LOW]
 
-    @Embedded
-    private User user;
+    @Enumerated(EnumType.STRING)
+    private Gender gender; //ENUM [MAN, WOMAN]
+
+//    @Embedded
+//    private User user;
 
     @Column(columnDefinition = "text")
     private String introduce;
@@ -83,4 +96,20 @@ public class Mentee {
         messages.add(message);
         message.setMessageMentee(this);
     }
+
+    //==비즈니스 로직==//
+    /**
+     * stock 증가
+     */
+
+    //받은 리뷰 수 증가
+    public void addGetStock() {
+        this.getReviewCount += 1;
+    }
+
+    //해준 리뷰 수 증가
+    public void addDoStock() {
+        this.doReviewCount += 1;
+    }
+
 }

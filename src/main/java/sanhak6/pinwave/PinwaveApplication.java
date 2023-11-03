@@ -8,6 +8,8 @@ public class PinwaveApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PinwaveApplication.class, args);
+
+		System.out.println("hello");
 	}
 
 }
