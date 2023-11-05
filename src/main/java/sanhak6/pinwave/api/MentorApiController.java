@@ -1,8 +1,12 @@
 package sanhak6.pinwave.api;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sanhak6.pinwave.domain.Gender;
 import sanhak6.pinwave.domain.Mentor;
@@ -10,10 +14,7 @@ import sanhak6.pinwave.repository.MentorRepository;
 import sanhak6.pinwave.service.MentorService;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
+import java.util.Date;
 
 
 @RestController
@@ -23,9 +24,61 @@ public class MentorApiController {
     private final MentorRepository mentorRepository;
     private final MentorService mentorService;
 
-    /**
-     * 등록 API
-     */
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginMentor(@RequestBody @Valid LoginRequest request) {
+        Mentor mentor = mentorService.loginMentor(request.getEmail(), request.getPassword);
+
+        if (mentor != null) {
+            // 로그인이 성공하면 토큰을 생성하고 클라이언트에게 반환
+            String token = generateToken(mentor.getEmail());
+            return ResponseEntity.ok(new LoginResponse(token));
+        } else {
+            // 로그인이 실패한 경우 UNAUTHORIZED 상태를 반환
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    // 토큰 생성
+    private String generateToken(String email) {
+        String secretKey = "NHvjstQWFI8gF85C7UJiSDfLbqWh1FItQr0S1pR2Ywg=";
+
+        // 토큰 만료 시간 설정 (예: 1시간)
+        long expirationTime = 3600000; // 1시간을 밀리초로 표현
+
+        String token = Jwts.builder()
+                .setSubject(email) // 토큰의 주제 설정 (이메일 등)
+                .setIssuedAt(new Date()) // 토큰 발급 일자 설정
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime)) // 토큰 만료 일자 설정
+                .signWith(SignatureAlgorithm.HS256, secretKey) // 토큰 서명 설정
+                .compact();
+
+        return token;
+    }
+
+    @Data
+    static class LoginRequest {
+        public String getPassword;
+        private String email;
+        private String password;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class LoginResponse {
+        private String token;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+
+
+
+
+
+
     @PostMapping("/register/mentor")
     public CreateMentorResponse saveMentor(@RequestBody @Valid CreateMentorRequest request) {
 
@@ -35,6 +88,7 @@ public class MentorApiController {
         mentor.setName(request.getName());
         mentor.setPhone(request.getPhone());
         mentor.setGender(request.getGender());
+        mentor.setCreateDate(request.getCreateDate());
 
         Long id = mentorService.join(mentor);
         return new CreateMentorResponse(id);
@@ -108,6 +162,7 @@ public class MentorApiController {
         private String name;
         private String phone;
         private Gender gender;
+        private LocalDateTime createDate;
     }
 
     @Data

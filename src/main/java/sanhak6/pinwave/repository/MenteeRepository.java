@@ -37,6 +37,24 @@ public class MenteeRepository {
                 .getResultList();
     }
 
+    public Mentee findWithMentor(Long id) {
+        return em.createQuery(
+                "select m from Mentee m" +
+                        " join fetch m.menteeMentors mt" +
+                        " join fetch mt.mentor mtt" +
+                        " where m.id = :id", Mentee.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+//    public List<Mentee> findAllMenteeWithMentor() {
+//        return em.createQuery(
+//                        "select m from Mentee m" +
+//                                " join fetch m.menteeMentors mt" +
+//                                " join fetch mt.mentor mtt", Mentee.class)
+//                .getResultList();
+//    }
+
     //==조회 로직==//
     /**
      * 마이페이지에서 내가 남긴 리뷰 및 나에게 남긴 리뷰 조회

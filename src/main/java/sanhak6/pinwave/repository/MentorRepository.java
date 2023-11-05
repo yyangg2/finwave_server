@@ -2,6 +2,7 @@ package sanhak6.pinwave.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.domain.review.ReviewMentee;
 import sanhak6.pinwave.domain.review.ReviewMentor;
@@ -24,6 +25,20 @@ public class MentorRepository {
                 .getResultList();
     }
 
+
+    public Mentor findByEmailAndPassword(String email, String password) {
+        List<Mentor> mentors = em.createQuery("SELECT m FROM Mentor m WHERE m.email = :email AND m.password = :password", Mentor.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getResultList();
+
+        return mentors.isEmpty() ? null : mentors.get(0);
+    }
+
+
+
+
+
     //spring data jpa쓰면 더 간단할듯
     public List<Mentor> findByName(String name) {
         return em.createQuery("select m from Mentor m where m.name = :name", Mentor.class)
@@ -34,6 +49,14 @@ public class MentorRepository {
     public List<Mentor> findByEmail(String email) {
         return em.createQuery("select m from Mentor m where m.email = :email", Mentor.class)
                 .setParameter("email", email)
+                .getResultList();
+    }
+
+    public List<Mentor> findAllMentorWithMentee() {
+        return em.createQuery(
+                        "select m from Mentor m" +
+                                " join fetch m.menteeMentors mt" +
+                                " join fetch mt.mentee mtt", Mentor.class)
                 .getResultList();
     }
 

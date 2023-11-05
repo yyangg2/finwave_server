@@ -1,11 +1,8 @@
 package sanhak6.pinwave.domain;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sanhak6.pinwave.domain.review.Review;
-import sanhak6.pinwave.domain.review.ReviewMentor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -70,6 +67,9 @@ public class Mentor {
     @OneToMany(mappedBy = "messageMentor")
     private List<Message> messages = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "menteeMentorMentor")
+//    private List<MenteeMentor> menteeMentors = new ArrayList<>();
+
 
     //==연관관계 메서드==// (with Review)
     public void addReview(Review review) {
@@ -94,6 +94,12 @@ public class Mentor {
         messages.add(message); //Mentor -> Message
         message.setMessageMentor(this); //Message -> Mentor
     }
+
+//    //==연관관계 메서드==// (with MenteeMentor)
+//    public void addMenteeMentor(MenteeMentor menteeMentor) {
+//        menteeMentors.add(menteeMentor); //Mentor -> MenteeMentor
+//        menteeMentor.setMenteeMentorMentor(this); //MenteeMentor -> Mentor
+//    }
 
     //==비즈니스 로직==//
     /**

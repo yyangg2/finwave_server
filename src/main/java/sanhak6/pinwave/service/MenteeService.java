@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MenteeRepository;
-import sanhak6.pinwave.repository.MentorRepository;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class MenteeService {
     }
 
     private void validateDuplicateMentor(Mentee mentee) {
-        List<Mentee> findMentees = menteeRepository.findByName(mentee.getEmail());
+        List<Mentee> findMentees = menteeRepository.findByEmail(mentee.getEmail());
         if (!findMentees.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }

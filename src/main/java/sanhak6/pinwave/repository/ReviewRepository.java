@@ -2,7 +2,6 @@ package sanhak6.pinwave.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.domain.review.Review;
 
 import javax.persistence.EntityManager;
