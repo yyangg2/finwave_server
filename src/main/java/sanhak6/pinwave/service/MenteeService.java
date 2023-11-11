@@ -1,12 +1,12 @@
 package sanhak6.pinwave.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MenteeRepository;
-import sanhak6.pinwave.repository.MentorRepository;
 
 import java.util.List;
 
@@ -16,6 +16,17 @@ import java.util.List;
 public class MenteeService {
 
     private final MenteeRepository menteeRepository;
+
+    // 멘티 로그인 구현
+    public Mentee loginMentee(String email, String password) {
+        Mentee mentee = menteeRepository.findByEmailAndPassword(email, password);
+
+        if (mentee == null) {
+            throw new BadCredentialsException("이메일 또는 비밀번호가 잘못되었습니다.");
+        }
+
+        return mentee;
+    }
 
     /**
      * 회원 가입
@@ -28,11 +39,13 @@ public class MenteeService {
     }
 
     private void validateDuplicateMentor(Mentee mentee) {
-        List<Mentee> findMentees = menteeRepository.findByName(mentee.getEmail());
+        List<Mentee> findMentees = menteeRepository.findByEmail(mentee.getEmail());
         if (!findMentees.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
+
+
 
     //변경 감지 사용
     public void updateMentee(Long menteeId, String introduce) {

@@ -31,11 +31,40 @@ public class MenteeRepository {
                 .getResultList();
     }
 
+    // 멘티 로그인
+    public Mentee findByEmailAndPassword(String email, String password) {
+        List<Mentee> mentees = em.createQuery("SELECT m FROM Mentee m WHERE m.email = :email AND m.password = :password", Mentee.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getResultList();
+
+        return mentees.isEmpty() ? null : mentees.get(0);
+    }
+    // 멘티 로그인 끝
+
     public List<Mentee> findByEmail(String email) {
         return em.createQuery("select m from Mentee m where m.email = :email", Mentee.class)
                 .setParameter("email", email)
                 .getResultList();
     }
+
+    public Mentee findWithMentor(Long id) {
+        return em.createQuery(
+                "select m from Mentee m" +
+                        " join fetch m.menteeMentors mt" +
+                        " join fetch mt.mentor mtt" +
+                        " where m.id = :id", Mentee.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
+//    public List<Mentee> findAllMenteeWithMentor() {
+//        return em.createQuery(
+//                        "select m from Mentee m" +
+//                                " join fetch m.menteeMentors mt" +
+//                                " join fetch mt.mentor mtt", Mentee.class)
+//                .getResultList();
+//    }
 
     //==조회 로직==//
     /**

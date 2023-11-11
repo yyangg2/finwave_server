@@ -1,8 +1,6 @@
 package sanhak6.pinwave.domain;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sanhak6.pinwave.domain.review.Review;
 import sanhak6.pinwave.domain.review.ReviewMentor;
@@ -27,7 +25,7 @@ public class Mentor {
 
     private String region;
 
-    private String job;
+    private String job; // 직업
 
     private Integer career; //경력
 
@@ -70,6 +68,9 @@ public class Mentor {
     @OneToMany(mappedBy = "messageMentor")
     private List<Message> messages = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "menteeMentorMentor")
+//    private List<MenteeMentor> menteeMentors = new ArrayList<>();
+
 
     //==연관관계 메서드==// (with Review)
     public void addReview(Review review) {
@@ -95,6 +96,12 @@ public class Mentor {
         message.setMessageMentor(this); //Message -> Mentor
     }
 
+//    //==연관관계 메서드==// (with MenteeMentor)
+//    public void addMenteeMentor(MenteeMentor menteeMentor) {
+//        menteeMentors.add(menteeMentor); //Mentor -> MenteeMentor
+//        menteeMentor.setMenteeMentorMentor(this); //MenteeMentor -> Mentor
+//    }
+
     //==비즈니스 로직==//
     /**
      * 리뷰 수 증가
@@ -109,5 +116,6 @@ public class Mentor {
     public void addDoStock() {
         this.doReviewCount += 1;
     }
+
 
 }

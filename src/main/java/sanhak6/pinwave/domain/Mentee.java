@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Mentee {
+public class Mentee{
 
     @Id
     @GeneratedValue
@@ -40,6 +40,8 @@ public class Mentee {
     private String phone;
     private LocalDateTime createDate;
 
+    private String interest; // 관심사 추가 - 유림
+
     @Enumerated(EnumType.STRING)
     private Level KnowLevel; //ENUM [HIGH, MEDIUM, LOW]
 
@@ -60,17 +62,20 @@ public class Mentee {
 //    private Review review; //FK
 
     //cascade 사용하면 안 될듯.. review, checklist, notice, message가 mentor랑 mentee 둘 다로부터 참조당하기 때문
-    @OneToMany(mappedBy = "reviewMentee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reviewMentee")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "checklistMentee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "checklistMentee")
     private List<Checklist> checklists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "noticeMentee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "noticeMentee")
     private List<Notice> notices = new ArrayList<>();
 
-    @OneToMany(mappedBy = "messageMentee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "messageMentee")
     private List<Message> messages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "mentee", cascade = CascadeType.ALL)
+    private List<MenteeMentor> menteeMentors = new ArrayList<>();
 
 
     //==연관관계 메서드==// (with Review)
@@ -97,6 +102,33 @@ public class Mentee {
         message.setMessageMentee(this);
     }
 
+    //==연관관계 메서드==// (with MenteeMentor)
+    public void addMenteeMentor(MenteeMentor menteeMentor) {
+        menteeMentors.add(menteeMentor); //Mentee -> MenteeMentor
+        menteeMentor.setMentee(this); //MenteeMentor -> Mentee
+    }
+
+    //==생성 메서드==//
+//    public static Mentee createMentee(MenteeMentor... menteeMentors) {
+//        Mentee mentee = new Mentee();
+//        for (MenteeMentor menteeMentor : menteeMentors) {
+//            mentee.addMenteeMentor(menteeMentor);
+//        }
+//        mentee.setCreateDate(LocalDateTime.now());
+//        return mentee;
+//    }
+
+    //==생성 메서드==//
+    public static Mentee createMentee2(MenteeMentor... menteeMentors) {
+        Mentee mentee = new Mentee();
+        for (MenteeMentor menteeMentor : menteeMentors) {
+            mentee.addMenteeMentor(menteeMentor);
+        }
+//        mentee.setCreateDate(LocalDateTime.now());
+        return mentee;
+    }
+
+
     //==비즈니스 로직==//
     /**
      * stock 증가
@@ -112,4 +144,8 @@ public class Mentee {
         this.doReviewCount += 1;
     }
 
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
 }
+
