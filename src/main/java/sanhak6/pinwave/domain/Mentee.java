@@ -42,12 +42,29 @@ public class Mentee{
 
     private String interest; // 관심사 추가 - 유림
 
-    @Enumerated(EnumType.STRING)
-    private Level KnowLevel; //ENUM [HIGH, MEDIUM, LOW]
+//    @Enumerated(EnumType.STRING)
+//    private Level knowLevel; //ENUM [HIGH, MEDIUM, LOW]
+    private String knowLevel;
 
-    @Enumerated(EnumType.STRING)
-    private Level AssetLevel; //ENUM [HIGH, MEDIUM, LOW]
+    public String getKKnowLevel(){
+        return knowLevel;
+    }
+    public void setKnowLevel(String knowLevel) {
+        this.knowLevel = knowLevel;
+    }
 
+    // 유림 수정 - 자산을 레벨 아닌 스트링으로 입력받도록함
+    private String assetLevel;
+    
+    public String getAssetLevel(){
+        return assetLevel;
+    }
+
+    public void setAssetLevel(String assetLevel) {
+        this.assetLevel = assetLevel;
+    }
+    // 여기까지 수정함
+    
     @Enumerated(EnumType.STRING)
     private Gender gender; //ENUM [MAN, WOMAN]
 

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import sanhak6.pinwave.domain.Gender;
+import sanhak6.pinwave.domain.Level;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.MenteeMentor;
 import sanhak6.pinwave.repository.MenteeRepository;
@@ -126,6 +127,45 @@ public class MenteeApiController {
 
         return new MenteeDto(findMentee);
     }
+
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+
+    @PostMapping("/main/mypage/profile_mentee")
+    public ResponseEntity<Result<String>> registerMenteeProfile(@RequestBody @Valid RegisterMenteeProfileRequest request) {
+        try {
+            menteeService.updateMenteeProfile(
+                    request.getMenteeId(),
+                    request.getIntroduce(),
+                    request.getJob(),
+                    request.getGoal(),
+                    request.getKnowLevel(),
+                    request.getRegion(),
+                    request.getAssetLevel()
+            );
+            return ResponseEntity.ok(new Result<>("멘티 프로필이 성공적으로 등록되었습니다."));
+        } catch (MenteeService.NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new Result<>("멘티를 찾을 수 없습니다."));
+        }
+    }
+
+    @Data
+    public static class RegisterMenteeProfileRequest {
+        private Long menteeId;
+        private String introduce;
+        private String job;
+        private String goal;
+        private String knowLevel;
+        private String region;
+        private String assetLevel;
+    }
+
+
 
 
 
