@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sanhak6.pinwave.api.MenteeApiController;
 import sanhak6.pinwave.domain.Level;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
@@ -74,7 +75,6 @@ public class MenteeService {
             throw new NotFoundException("Mentee not found");
         }
 
-        // Update Mentee profile fields
         mentee.setIntroduce(introduce);
         mentee.setJob(job);
         mentee.setGoal(goal);
@@ -83,6 +83,17 @@ public class MenteeService {
         mentee.setAssetLevel(assetLevel);
 
         menteeRepository.save(mentee);
+    }
+
+    // 멘티 프로필 열람
+    public MenteeApiController.MenteeProfileDto getMenteeProfileById(Long menteeId) {
+        Mentee mentee = menteeRepository.findOne(menteeId);
+
+        if (mentee == null) {
+            throw new NotFoundException("멘티를 찾을 수 없습니다.");
+        }
+
+        return new MenteeApiController.MenteeProfileDto(mentee);
     }
 
 }

@@ -52,21 +52,21 @@ public class MenteeApiController {
 
     private String generateToken(String email) {
 
-            String secretKey = "NHvjstQWFI8gF86C7UJiSDfLbqWh1FItQr0S1pR2Ywg=";
+        String secretKey = "NHvjstQWFI8gF86C7UJiSDfLbqWh1FItQr0S1pR2Ywg=";
 
-            // 토큰 만료 시간 설정 (예: 1시간)
-            final long EXPIRATION_TIME = 3600000; // 1시간을 밀리초로 표현
+        // 토큰 만료 시간 설정 (예: 1시간)
+        final long EXPIRATION_TIME = 3600000; // 1시간을 밀리초로 표현
 
-            String token = Jwts.builder()
-                    .setSubject(email) // 토큰의 주제 설정 (이메일 등)
-                    .setIssuedAt(new Date()) // 토큰 발급 일자 설정
-                    .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) // 토큰 만료 일자 설정
-                    .signWith(SignatureAlgorithm.HS256, secretKey) // 토큰 서명 설정
-                    .compact();
+        String token = Jwts.builder()
+                .setSubject(email) // 토큰의 주제 설정 (이메일 등)
+                .setIssuedAt(new Date()) // 토큰 발급 일자 설정
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) // 토큰 만료 일자 설정
+                .signWith(SignatureAlgorithm.HS256, secretKey) // 토큰 서명 설정
+                .compact();
 
-            long expirationTime = System.currentTimeMillis() + EXPIRATION_TIME;
-            return token;
-        }
+        long expirationTime = System.currentTimeMillis() + EXPIRATION_TIME;
+        return token;
+    }
 
 
 
@@ -164,6 +164,40 @@ public class MenteeApiController {
         private String region;
         private String assetLevel;
     }
+
+    // 멘티 프로필 열람
+    @GetMapping("/main/mypage/profile_mentee/{menteeId}")
+    public ResponseEntity<Result<MenteeProfileDto>> getMenteeProfile(@PathVariable Long menteeId) {
+        try {
+            MenteeProfileDto menteeProfileDto = menteeService.getMenteeProfileById(menteeId);
+            return ResponseEntity.ok(new Result<>(menteeProfileDto));
+        } catch (MenteeService.NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new Result<>(null));
+        }
+    }
+
+    @Data
+    public static class MenteeProfileDto {
+        private Long menteeId;
+        private String introduce;
+        private String job;
+        private String goal;
+        private String knowLevel;
+        private String region;
+        private String assetLevel;
+
+        public MenteeProfileDto(Mentee mentee) {
+            this.menteeId = mentee.getId();
+            this.introduce = mentee.getIntroduce();
+            this.job = mentee.getJob();
+            this.goal = mentee.getGoal();
+            this.knowLevel = mentee.getKnowLevel();
+            this.region = mentee.getRegion();
+            this.assetLevel = mentee.getAssetLevel();
+        }
+    }
+
 
 
 
@@ -306,4 +340,3 @@ public class MenteeApiController {
 
 
 }
-

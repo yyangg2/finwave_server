@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sanhak6.pinwave.api.MentorApiController;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MentorRepository;
 
@@ -85,5 +86,15 @@ public class MentorService {
 
         // 변경 사항 저장
         mentorRepository.save(mentor);
+    }
+
+    public MentorApiController.MentorPortfolioDto getMentorPortfolioById(Long mentorId) throws NotFoundException {
+        Mentor mentor = mentorRepository.findOne(mentorId);
+
+        if (mentor == null) {
+            throw new NotFoundException("멘토를 찾을 수 없습니다.");
+        }
+
+        return new MentorApiController.MentorPortfolioDto(mentor);
     }
 }

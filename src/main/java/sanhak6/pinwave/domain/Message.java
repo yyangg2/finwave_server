@@ -28,4 +28,27 @@ public class Message {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mentee_id")
     private Mentee messageMentee;
+
+    // 추가
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_room_id")
+    private ChatRoom chatRoom;
+
+    public void setMessageMentor(Mentor mentor) {
+        this.messageMentor = mentor;
+    }
+
+    public void setSenderMentor(Mentor mentor) {
+        this.messageMentor = mentor;
+    }
+
+    public void setSenderMentee(Mentee mentee) {
+        this.messageMentee = mentee;
+    }
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+    }
 }
+

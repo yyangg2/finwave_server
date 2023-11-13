@@ -36,13 +36,13 @@ public class Mentee{
     private String name; //실명
     private String email; //이메일
     private String password; //비밀번호
-//    private String gender;
+    //    private String gender;
     private String phone;
     private LocalDateTime createDate;
 
     private String interest; // 관심사 추가 - 유림
 
-//    @Enumerated(EnumType.STRING)
+    //    @Enumerated(EnumType.STRING)
 //    private Level knowLevel; //ENUM [HIGH, MEDIUM, LOW]
     private String knowLevel;
 
@@ -55,7 +55,7 @@ public class Mentee{
 
     // 유림 수정 - 자산을 레벨 아닌 스트링으로 입력받도록함
     private String assetLevel;
-    
+
     public String getAssetLevel(){
         return assetLevel;
     }
@@ -64,7 +64,7 @@ public class Mentee{
         this.assetLevel = assetLevel;
     }
     // 여기까지 수정함
-    
+
     @Enumerated(EnumType.STRING)
     private Gender gender; //ENUM [MAN, WOMAN]
 
@@ -165,4 +165,3 @@ public class Mentee{
         this.interest = interest;
     }
 }
-

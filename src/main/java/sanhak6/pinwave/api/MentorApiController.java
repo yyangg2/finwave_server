@@ -204,6 +204,8 @@ public class MentorApiController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new Result<>("멘토를 찾을 수 없습니다."));
         }
+
+
     }
 
     @Data
@@ -215,6 +217,45 @@ public class MentorApiController {
         private String field2;
         private String field3;
         private String region;
+    }
+
+
+
+
+
+    @GetMapping("main/mypage/portfolio_mentor/{mentorId}")
+    public ResponseEntity<Result<MentorPortfolioDto>> getMentorPortfolio(@PathVariable Long mentorId) {
+        try {
+            MentorPortfolioDto mentorPortfolioDto = mentorService.getMentorPortfolioById(mentorId);
+            return ResponseEntity.ok(new Result<>(mentorPortfolioDto));
+        } catch (MentorService.NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new Result<>(new MentorPortfolioDto()));
+        }
+    }
+
+    @Data
+    public static class MentorPortfolioDto {
+        private Long mentorId;
+        private String introduce;
+        private String job;
+        private String field1;
+        private String field2;
+        private String field3;
+        private String region;
+
+        public MentorPortfolioDto() {
+        }
+
+        public MentorPortfolioDto(Mentor mentor) {
+            this.mentorId = mentor.getId();
+            this.introduce = mentor.getIntroduce();
+            this.job = mentor.getJob();
+            this.field1 = mentor.getField1();
+            this.field2 = mentor.getField2();
+            this.field3 = mentor.getField3();
+            this.region = mentor.getRegion();
+        }
     }
 
 
