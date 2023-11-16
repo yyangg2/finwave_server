@@ -33,7 +33,7 @@ public class InitMentorDb {
 
         public void dbInit1() {
             Mentor mentor = createMentor("kau1@naver.com", "1111", "강대양", "01011112222", Gender.MAN,
-                    "주식", "대출", "부동산", "펀드매니저", 20, 5, 1, 4, 2,
+                    "주식", "대출", "부동산", "펀드매니저", "20년 이상", 5, 1, 4, 2,
                     "안녕하세요 강대양입니다", LocalDateTime.now());
 
             em.persist(mentor);
@@ -44,7 +44,7 @@ public class InitMentorDb {
 
         public void dbInit2() {
             Mentor mentor = createMentor("kau2@naver.com", "2222", "노유림", "01022223333", Gender.WOMAN,
-                    "대출", "부동산", "주식", "은행원", 10, 4, 2, 3, 3,
+                    "대출", "부동산", "주식", "은행원", "1년", 4, 2, 3, 3,
                     "안녕하세요 노유림입니다", LocalDateTime.now());
 
             em.persist(mentor);
@@ -55,7 +55,7 @@ public class InitMentorDb {
 
         public void dbInit3() {
             Mentor mentor = createMentor("kau3@naver.com", "3333", "조자운", "01033334444", Gender.MAN,
-                    "부동산", "주식", "대출", "부동산중개인", 5, 3, 3, 2, 1,
+                    "부동산", "주식", "대출", "부동산중개인", "3년-5년", 3, 3, 2, 1,
                     "안녕하세요 조자운입니다", LocalDateTime.now());
 
             em.persist(mentor);
@@ -66,7 +66,7 @@ public class InitMentorDb {
 
 
         private Mentor createMentor(String email, String password, String name, String phone, Gender gender, String field1, String field2, String field3,
-                                    String job, Integer career, Integer count, Integer mentorRank, Integer getReviewCount, Integer doReviewCount,
+                                    String job, String career, Integer count, Integer mentorRank, Integer getReviewCount, Integer doReviewCount,
                                     String introduce, LocalDateTime createDate) {
             Mentor mentor = new Mentor();
             mentor.setEmail(email);

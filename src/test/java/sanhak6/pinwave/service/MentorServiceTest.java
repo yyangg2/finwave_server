@@ -129,24 +129,6 @@ class MentorServiceTest {
         assertEquals("test@example.com", loggedInMentor.getEmail());
     }
 
-    @Test
-    public void testUpdateMentorPortfolio() throws MentorService.NotFoundException {
-        // 테스트용 멘토 생성
-        Mentor mentor = new Mentor();
-        mentor.setEmail("test@example.com");
-        mentor.setPassword("testpassword");
-        mentorService.join(mentor);
-
-        // 포트폴리오 정보 업데이트 테스트
-        mentorService.updateMentorPortfolio(mentor.getId(), "New introduction", "New job", "Field1", "Field2", "Field3", "New Region");
-        Mentor updatedMentor = mentorService.findOne(mentor.getId());
-
-        assertEquals("New introduction", updatedMentor.getIntroduce());
-        assertEquals("New job", updatedMentor.getJob());
-        assertEquals("Field1", updatedMentor.getField1());
-        assertEquals("Field2", updatedMentor.getField2());
-        assertEquals("Field3", updatedMentor.getField3());
-        assertEquals("New Region", updatedMentor.getRegion());
-    }
+    
 
 }

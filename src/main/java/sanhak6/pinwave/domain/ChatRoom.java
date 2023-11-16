@@ -20,6 +20,5 @@ public class ChatRoom {
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL)
     private List<Message> messages = new ArrayList<>();
 
-    // You can add more fields as needed
 }
 

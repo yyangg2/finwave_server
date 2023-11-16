@@ -50,5 +50,18 @@ public class Message {
     public void setChatRoom(ChatRoom chatRoom) {
         this.chatRoom = chatRoom;
     }
+
+
+    // Message 엔터티에 메시지 읽음 상태 관련 필드 추가
+    private LocalDateTime readDate;
+
+    public void markAsRead() {
+        this.readDate = LocalDateTime.now();
+    }
+
+    // 메시지가 보내진 시간을 기록하여 화면에 표시
+    public Message() {
+        this.sendDate = LocalDateTime.now();
+    }
 }
 

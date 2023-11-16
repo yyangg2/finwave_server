@@ -14,6 +14,7 @@ import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Message;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.service.ChatRoomService;
+import sanhak6.pinwave.service.MessageService;
 
 @RestController
 @RequestMapping("/api/chat")
@@ -22,12 +23,14 @@ public class ChatController {
     @Autowired
     private ChatRoomService chatRoomService;
 
+    @Autowired
+    private MessageService messageService;
+
     @MessageMapping("/send/{roomId}")
     @SendTo("/topic/{roomId}")
     public Message sendMessage(@DestinationVariable String roomId, @Payload Message message) {
         ChatRoom chatRoom = chatRoomService.getOrCreateChatRoom(roomId);
 
-        // Set sender information based on your authentication logic
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (userDetails instanceof Mentor) {
@@ -37,13 +40,10 @@ public class ChatController {
         }
 
         message.setChatRoom(chatRoom);
-        chatRoom.getMessages().add(message);
 
-        // Save the message and chat room to the database using your service/repository
-        // messageService.save(message);
-        // chatRoomService.save(chatRoom);
+        // db에 메시지 저장
+        message = messageService.saveMessage(message);
 
         return message;
     }
 }
-

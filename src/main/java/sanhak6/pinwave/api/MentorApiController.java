@@ -5,19 +5,20 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import sanhak6.pinwave.domain.Gender;
 import sanhak6.pinwave.domain.Mentor;
-import sanhak6.pinwave.domain.review.Review;
 import sanhak6.pinwave.repository.MentorRepository;
 import sanhak6.pinwave.service.MentorService;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -131,7 +132,7 @@ public class MentorApiController {
         private String field2;
         private String field3;
         private String job;
-        private Integer career;
+        private String career; // integer -> string으로 변경
         private String name;
         private Integer count;
         private Integer mentorRank;
@@ -193,6 +194,7 @@ public class MentorApiController {
             mentorService.updateMentorPortfolio(
                     request.getMentorId(),
                     request.getIntroduce(),
+                    request.getCareer(),
                     request.getJob(),
                     request.getField1(),
                     request.getField2(),
@@ -212,6 +214,7 @@ public class MentorApiController {
     static class RegisterPortfolioRequest {
         private Long mentorId;
         private String introduce;
+        private String career;
         private String job;
         private String field1;
         private String field2;
@@ -238,6 +241,7 @@ public class MentorApiController {
     public static class MentorPortfolioDto {
         private Long mentorId;
         private String introduce;
+        private String career;
         private String job;
         private String field1;
         private String field2;
@@ -250,6 +254,7 @@ public class MentorApiController {
         public MentorPortfolioDto(Mentor mentor) {
             this.mentorId = mentor.getId();
             this.introduce = mentor.getIntroduce();
+            this.career = mentor.getCareer();
             this.job = mentor.getJob();
             this.field1 = mentor.getField1();
             this.field2 = mentor.getField2();
@@ -258,7 +263,157 @@ public class MentorApiController {
         }
     }
 
+    @Data
+    public class MentorFilteringDto {
+        private String field1;
+        private String field2;
+        private String field3;
+        private String job;
+        private String career;
+        private String region;
 
+        public MentorFilteringDto(Mentor mentor) {
+            this.field1 = mentor.getField1();
+            this.field2 = mentor.getField2();
+            this.field3 = mentor.getField3();
+            this.job = mentor.getJob();
+            this.career = mentor.getCareer();
+            this.region = mentor.getRegion();
+        }
+    }
+
+    //필터링
+    @GetMapping("/mentor_filtering")
+    public ResponseEntity<String> filterMentors(
+            @RequestParam(required = false) String career,
+            @RequestParam(required = false) String job,
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false) String field1,
+            @RequestParam(required = false) String field2,
+            @RequestParam(required = false) String field3) {
+
+        List<Mentor> mentors = mentorService.searchMentorsByFilter(career, job, region, field1, field2, field3);
+//        List<MentorDto> mentorDtos = mentors.stream()
+//                .map(MentorDto::new)
+//                .collect(Collectors.toList());
+//
+//        return ResponseEntity.ok(mentorDtos);
+//    }
+        if (!mentors.isEmpty()) {
+            return ResponseEntity.ok("멘토 필터링 검색이 성공적으로 완료되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("해당 필터링에 대한 멘토는 존재하지 않습니다.");
+        }
+    }
+
+    public class FilteredMentorDto {
+        private String name;
+        private Long id;
+        private String career;
+//        private String job;
+//        private String region;
+        private String field1;
+        private String field2;
+        private String field3;
+
+        public String getName() {
+            return name;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public String getCareer() {
+            return career;
+        }
+
+//        public String getJob() {
+//            return job;
+//        }
+//
+//        public String getRegion() {
+//            return region;
+//        }
+
+        public String getField1() {
+            return field1;
+        }
+
+        public String getField2() {
+            return field2;
+        }
+
+        public String getField3() {
+            return field3;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public void setCareer(String career) {
+            this.career = career;
+        }
+
+//        public void setJob(String job) {
+//            this.job = job;
+//        }
+//
+//        public void setRegion(String region) {
+//            this.region = region;
+//        }
+
+        public void setField1(String field1) {
+            this.field1 = field1;
+        }
+
+        public void setField2(String field2) {
+            this.field2 = field2;
+        }
+
+        public void setField3(String field3) {
+            this.field3 = field3;
+        }
+    }
+
+    // 멘토 필터링 결과 조회를 위한 API
+    @GetMapping("/mentor_filtering/result")
+    public ResponseEntity<List<FilteredMentorDto>> filterResults(
+            @RequestParam(required = false) String career,
+            @RequestParam(required = false) String job,
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false) String field1,
+            @RequestParam(required = false) String field2,
+            @RequestParam(required = false) String field3) {
+
+        List<Mentor> mentors = mentorService.searchMentorsByFilter(career, job, region, field1, field2, field3);
+
+        if (!mentors.isEmpty()) {
+            List<FilteredMentorDto> mentorDtos = mentors.stream()
+                    .map(mentor -> {
+                        FilteredMentorDto filteredMentorDto = new FilteredMentorDto();
+                        filteredMentorDto.setName(mentor.getName());
+                        filteredMentorDto.setId(mentor.getId());
+                        filteredMentorDto.setCareer(mentor.getCareer());
+//                        filteredMentorDto.setJob(mentor.getJob());
+//                        filteredMentorDto.setRegion(mentor.getRegion());
+                        filteredMentorDto.setField1(mentor.getField1());
+                        filteredMentorDto.setField2(mentor.getField2());
+                        filteredMentorDto.setField3(mentor.getField3());
+                        return filteredMentorDto;
+                    })
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(mentorDtos);
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(Collections.emptyList());
+        }
+    }
 
 }
 

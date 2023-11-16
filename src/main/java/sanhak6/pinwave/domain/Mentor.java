@@ -27,7 +27,7 @@ public class Mentor {
 
     private String job; // 직업
 
-    private Integer career; //경력
+    private String career; //경력 integer->string수정
 
     private String field1;
     private String field2;
@@ -115,6 +115,10 @@ public class Mentor {
     //해준 리뷰 수 증가
     public void addDoStock() {
         this.doReviewCount += 1;
+    }
+
+    public void setCareer(String career) {
+        this.career = career;
     }
 
 

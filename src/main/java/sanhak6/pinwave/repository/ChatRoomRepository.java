@@ -7,6 +7,5 @@ import sanhak6.pinwave.domain.ChatRoom;
 @Repository
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
 
-    // You can add custom query methods if needed
 
 }
