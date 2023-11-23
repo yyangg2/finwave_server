@@ -56,10 +56,10 @@ public abstract class Review {
     }
 
     //==생성 메서드==// (멘티 리뷰)
-    public static ReviewMentee createReviewMentee(Mentor mentor, Mentee mentee, float star, String content) {
+    public static ReviewMentee createReviewMentee(Mentee mentee, Mentor mentor, float star, String content) {
         ReviewMentee reviewMentee = new ReviewMentee();
-        reviewMentee.setReviewMentor(mentor);
         reviewMentee.setReviewMentee(mentee);
+        reviewMentee.setReviewMentor(mentor);
 
         reviewMentee.setStar(star);
         reviewMentee.setContent(content);

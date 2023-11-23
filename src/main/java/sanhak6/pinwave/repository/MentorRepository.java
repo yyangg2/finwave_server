@@ -35,6 +35,10 @@ public class MentorRepository {
         return mentors.isEmpty() ? null : mentors.get(0);
     }
 
+//    public Mentor findByEmail(String email) {
+//
+//    }
+
 
 
 

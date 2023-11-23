@@ -33,6 +33,18 @@ public class MenteeService {
         }
     }
 
+    public Mentee loginMentee(String email, String password) {
+        Mentee mentee = menteeRepository.findByEmailAndPassword(email, password);
+
+        if (mentee == null) {
+            return null;
+//            throw new IllegalArgumentException("잘못된 이메일 또는 비밀번호입니다.");
+        }
+
+        return mentee;
+    }
+
+
     //변경 감지 사용
     public void updateMentee(Long menteeId, String introduce) {
         Mentee mentee = menteeRepository.findOne(menteeId);

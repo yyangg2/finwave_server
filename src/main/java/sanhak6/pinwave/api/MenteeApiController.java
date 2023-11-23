@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sanhak6.pinwave.domain.Gender;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.MenteeMentor;
+import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MenteeRepository;
 import sanhak6.pinwave.repository.MentorRepository;
 import sanhak6.pinwave.service.MenteeService;
@@ -78,24 +79,23 @@ public class MenteeApiController {
     /**
      * 조회 API: 메인페이지
      */
-    @GetMapping("/mainPage/mentee/{id}")
-    public MenteeDto mainPageMentee(@PathVariable("id") Long id) {
-        Mentee findMentee = menteeRepository.findWithMentor(id);
-
-        return new MenteeDto(findMentee);
-    }
-
-
-
 //    @GetMapping("/mainPage/mentee/{id}")
-//    public List<MenteeDto> mentees() {
-//        List<Mentee> mentees = menteeRepository.findAllMenteeWithMentor();
-//        List<MenteeDto> result = mentees.stream()
-//                .map(mentee -> new MenteeDto(mentee))
-//                .collect(toList());
+//    public MenteeDto mainPageMentee(@PathVariable("id") Long id) {
+//        Mentee findMentee = menteeRepository.findWithMentor(id);
 //
-//        return result;
+//        return new MenteeDto(findMentee);
 //    }
+
+    @GetMapping("/mainPage/mentee/{id}")
+    public List<MenteeDto> mainPageMentee(@PathVariable("id") Long id) {
+        Mentee findMentee = menteeRepository.findOne(id);
+        List<Mentee> mentees = menteeRepository.findAllWithMentor(findMentee);
+        List<MenteeDto> result = mentees.stream()
+                .map(mentee -> new MenteeDto(mentee))
+                .collect(toList());
+
+        return result;
+    }
 
 //    @GetMapping("/mainPage/mentee/{id}")
 //    public List<MenteeMentorMenteeDto> mentees() {
@@ -129,14 +129,6 @@ public class MenteeApiController {
 //        }
 //    }
 
-    @Data
-    static class MenteeMentorDto {
-        private String mentorName;
-
-        public MenteeMentorDto(MenteeMentor menteeMentor) {
-            mentorName = menteeMentor.getMentor().getName();
-        }
-    }
 
 //    @Data
 //    static class MenteeDto2 {
@@ -173,6 +165,15 @@ public class MenteeApiController {
             menteeMentors = mentee.getMenteeMentors().stream()
                     .map(menteeMentor -> new MenteeMentorDto(menteeMentor))
                     .collect(toList());
+        }
+    }
+
+    @Data
+    static class MenteeMentorDto {
+        private String mentorName ;
+
+        public MenteeMentorDto(MenteeMentor menteeMentor) {
+            mentorName = menteeMentor.getMenteeMentorMentor().getName();
         }
     }
 

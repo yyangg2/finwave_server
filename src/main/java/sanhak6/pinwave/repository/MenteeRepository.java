@@ -3,6 +3,8 @@ package sanhak6.pinwave.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import sanhak6.pinwave.domain.Mentee;
+import sanhak6.pinwave.domain.Mentor;
+import sanhak6.pinwave.domain.review.Review;
 import sanhak6.pinwave.domain.review.ReviewMentee;
 import sanhak6.pinwave.domain.review.ReviewMentor;
 
@@ -47,13 +49,24 @@ public class MenteeRepository {
                 .getSingleResult();
     }
 
-//    public List<Mentee> findAllMenteeWithMentor() {
-//        return em.createQuery(
-//                        "select m from Mentee m" +
-//                                " join fetch m.menteeMentors mt" +
-//                                " join fetch mt.mentor mtt", Mentee.class)
-//                .getResultList();
-//    }
+    public List<Mentee> findAllWithMentor(Mentee mentee) {
+        return em.createQuery(
+                        "select distinct m from Mentee m" +
+                                " join fetch m.menteeMentors mt" +
+                                " join fetch mt.menteeMentorMentor mtt" +
+                                " where m = :mentee", Mentee.class)
+                .setParameter("mentee", mentee)
+                .getResultList();
+    }
+
+    public Mentee findByEmailAndPassword(String email, String password) {
+        List<Mentee> mentees = em.createQuery("SELECT m FROM Mentee m WHERE m.email = :email AND m.password = :password", Mentee.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getResultList();
+
+        return mentees.isEmpty() ? null : mentees.get(0);
+    }
 
     //==조회 로직==//
     /**

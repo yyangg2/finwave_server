@@ -31,8 +31,8 @@ public class InitMenteeDb {
         private final EntityManager em;
 
         public void dbInit1() {
-            Mentee mentee = createMentee("kau4@naver.com", "4444", "이혜인", "01044445555", Gender.WOMAN,
-                    "주식", 22, "학생", 3, 1, 1, 1, "안녕하세요 이혜인입니다", LocalDateTime.now());
+            Mentee mentee = createMentee("mentee2@naver.com", "4444", "노유림", "01044445555", Gender.WOMAN,
+                    "주식", 22, "학생", 3, 1, 1, 1, "안녕하세요 노유림입니다", LocalDateTime.now());
             em.persist(mentee);
 
 //            MenteeMentor menteeMentor = MenteeMentor.createMenteeMentorMentee(mentee);
@@ -42,7 +42,7 @@ public class InitMenteeDb {
         }
 
         public void dbInit2() {
-            Mentee mentee = createMentee("kau5@naver.com", "5555", "맹성주", "01055556666", Gender.MAN,
+            Mentee mentee = createMentee("mentee3@naver.com", "5555", "맹성주", "01055556666", Gender.MAN,
                     "대출", 26, "학생", 4, 2, 2, 4, "안녕하세요 맹성주입니다", LocalDateTime.now());
             em.persist(mentee);
 
@@ -52,7 +52,7 @@ public class InitMenteeDb {
         }
 
         public void dbInit3() {
-            Mentee mentee = createMentee("kau6@naver.com", "6666", "이진우", "01066667777", Gender.MAN,
+            Mentee mentee = createMentee("mentee4@naver.com", "6666", "이진우", "01066667777", Gender.MAN,
                     "부동산", 27, "학생", 5, 3, 4, 3, "안녕하세요 이진우입니다", LocalDateTime.now());
 
             em.persist(mentee);

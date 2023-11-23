@@ -67,8 +67,8 @@ public class Mentor {
     @OneToMany(mappedBy = "messageMentor")
     private List<Message> messages = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "menteeMentorMentor")
-//    private List<MenteeMentor> menteeMentors = new ArrayList<>();
+    @OneToMany(mappedBy = "menteeMentorMentor") //MenteeMentor -> Mentor 단방향이면 필요없음
+    private List<MenteeMentor> menteeMentors = new ArrayList<>();
 
 
     //==연관관계 메서드==// (with Review)
@@ -95,10 +95,21 @@ public class Mentor {
         message.setMessageMentor(this); //Message -> Mentor
     }
 
-//    //==연관관계 메서드==// (with MenteeMentor)
-//    public void addMenteeMentor(MenteeMentor menteeMentor) {
-//        menteeMentors.add(menteeMentor); //Mentor -> MenteeMentor
-//        menteeMentor.setMenteeMentorMentor(this); //MenteeMentor -> Mentor
+    //==연관관계 메서드==// (with MenteeMentor)
+    //MenteeMentor -> Mentor 단방향이면 필요없음
+    public void addMenteeMentor(MenteeMentor menteeMentor) {
+        menteeMentors.add(menteeMentor); //Mentor -> MenteeMentor
+        menteeMentor.setMenteeMentorMentor(this); //MenteeMentor -> Mentor
+    }
+
+    //==생성 메서드==//
+//    public static Mentee createMentor(MenteeMentor... menteeMentors) {
+//        Mentee mentee = new Mentee();
+//        for (MenteeMentor menteeMentor : menteeMentors) {
+//            mentee.addMenteeMentor(menteeMentor);
+//        }
+//        mentee.setCreateDate(LocalDateTime.now());
+//        return mentee;
 //    }
 
     //==비즈니스 로직==//

@@ -66,13 +66,16 @@ public class Mentee{
     @OneToMany(mappedBy = "checklistMentee")
     private List<Checklist> checklists = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "todoMentee")
+//    private List<Todo> checklists = new ArrayList<>();
+
     @OneToMany(mappedBy = "noticeMentee")
     private List<Notice> notices = new ArrayList<>();
 
     @OneToMany(mappedBy = "messageMentee")
     private List<Message> messages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "mentee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "menteeMentorMentee", cascade = CascadeType.ALL)
     private List<MenteeMentor> menteeMentors = new ArrayList<>();
 
 
@@ -87,6 +90,11 @@ public class Mentee{
         checklists.add(checklist);
         checklist.setChecklistMentee(this);
     }
+
+//    public void addTodo(Todo todo) {
+//        checklists.add(// TODO: 2023-11-14  );
+//        todo.setTodoMentee(this);
+//    }
 
     //==연관관계 메서드==// (with Notice)
     public void addNotice(Notice notice) {
@@ -103,7 +111,7 @@ public class Mentee{
     //==연관관계 메서드==// (with MenteeMentor)
     public void addMenteeMentor(MenteeMentor menteeMentor) {
         menteeMentors.add(menteeMentor); //Mentee -> MenteeMentor
-        menteeMentor.setMentee(this); //MenteeMentor -> Mentee
+        menteeMentor.setMenteeMentorMentee(this); //MenteeMentor -> Mentee
     }
 
     //==생성 메서드==//
@@ -115,17 +123,6 @@ public class Mentee{
 //        mentee.setCreateDate(LocalDateTime.now());
 //        return mentee;
 //    }
-
-    //==생성 메서드==//
-    public static Mentee createMentee2(MenteeMentor... menteeMentors) {
-        Mentee mentee = new Mentee();
-        for (MenteeMentor menteeMentor : menteeMentors) {
-            mentee.addMenteeMentor(menteeMentor);
-        }
-//        mentee.setCreateDate(LocalDateTime.now());
-        return mentee;
-    }
-
 
     //==비즈니스 로직==//
     /**
