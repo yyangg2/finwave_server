@@ -4,8 +4,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import sanhak6.pinwave.api.MenteeReviewApiController;
+import sanhak6.pinwave.domain.review.ReviewMentee;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -21,11 +27,11 @@ public class MenteeMentor {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "mentee_id")
-    private Mentee mentee;
+    private Mentee menteeMentorMentee;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "mentor_id")
-    private Mentor mentor;
+    private Mentor menteeMentorMentor;
 
     //==생성 메서드==//
 //    public static MenteeMentor createMenteeMentorMentor(Mentor mentor) {
@@ -43,9 +49,10 @@ public class MenteeMentor {
 //    }
 
     //==생성 메서드==//
-    public static MenteeMentor createMenteeMentor(Mentor mentor) {
+    public static MenteeMentor createMenteeMentor(Mentee mentee, Mentor mentor) {
         MenteeMentor menteeMentor = new MenteeMentor();
-        menteeMentor.setMentor(mentor);
+        menteeMentor.setMenteeMentorMentee(mentee);
+        menteeMentor.setMenteeMentorMentor(mentor);
 
         return menteeMentor;
     }

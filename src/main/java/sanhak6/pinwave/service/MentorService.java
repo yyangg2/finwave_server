@@ -26,11 +26,13 @@ public class MentorService {
         Mentor mentor = mentorRepository.findByEmailAndPassword(email, password);
 
         if (mentor == null) {
-            throw new BadCredentialsException("이메일 또는 비밀번호가 옳지 않습니다.");
+            return null;
+//            throw new IllegalArgumentException("잘못된 이메일 또는 비밀번호입니다.");
         }
 
         return mentor;
     }
+
 
     /**
      * 회원 가입
@@ -57,14 +59,10 @@ public class MentorService {
     }
 
     //전체 조회
-    public List<Mentor> findMentors() {
-        return mentorRepository.findAll();
-    }
+    public List<Mentor> findMentors() { return mentorRepository.findAll(); }
 
     //단건 조회
-    public Mentor findOne(Long mentorId) {
-        return mentorRepository.findOne(mentorId);
-    }
+    public Mentor findOne(Long mentorId) { return mentorRepository.findOne(mentorId); }
 
 
     // 로그인 예외처리

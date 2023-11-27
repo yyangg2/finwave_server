@@ -82,8 +82,8 @@ public class Mentee{
     @OneToMany(mappedBy = "reviewMentee")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "checklistMentee")
-    private List<Checklist> checklists = new ArrayList<>();
+//    @OneToMany(mappedBy = "checklistMentee")
+//    private List<Checklist> checklists = new ArrayList<>();
 
     @OneToMany(mappedBy = "noticeMentee")
     private List<Notice> notices = new ArrayList<>();
@@ -91,7 +91,7 @@ public class Mentee{
     @OneToMany(mappedBy = "messageMentee")
     private List<Message> messages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "mentee", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "menteeMentorMentee", cascade = CascadeType.ALL)
     private List<MenteeMentor> menteeMentors = new ArrayList<>();
 
 
@@ -101,11 +101,11 @@ public class Mentee{
         review.setReviewMentee(this);
     }
 
-    //==연관관계 메서드==// (with Checklist)
-    public void addChecklist(Checklist checklist) {
-        checklists.add(checklist);
-        checklist.setChecklistMentee(this);
-    }
+//    //==연관관계 메서드==// (with Checklist)
+//    public void addChecklist(Checklist checklist) {
+//        checklists.add(checklist);
+//        checklist.setChecklistMentee(this);
+//    }
 
     //==연관관계 메서드==// (with Notice)
     public void addNotice(Notice notice) {
@@ -122,7 +122,7 @@ public class Mentee{
     //==연관관계 메서드==// (with MenteeMentor)
     public void addMenteeMentor(MenteeMentor menteeMentor) {
         menteeMentors.add(menteeMentor); //Mentee -> MenteeMentor
-        menteeMentor.setMentee(this); //MenteeMentor -> Mentee
+        menteeMentor.setMenteeMentorMentee(this); //MenteeMentor -> Mentee
     }
 
     //==생성 메서드==//
@@ -164,4 +164,13 @@ public class Mentee{
     public void setInterest(String interest) {
         this.interest = interest;
     }
+
+    //==연관관계 메서드==// (with Checklist)
+    public void addChecklist(Checklist checklist) {
+        checklists.add(checklist);
+        checklist.setChecklistMentee(this);
+    }
+
+    @OneToMany(mappedBy = "checklistMentee")
+    private List<Checklist> checklists = new ArrayList<>();
 }

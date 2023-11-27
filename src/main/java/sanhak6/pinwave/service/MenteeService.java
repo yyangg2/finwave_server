@@ -9,7 +9,7 @@ import sanhak6.pinwave.domain.Level;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MenteeRepository;
-
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -18,17 +18,6 @@ import java.util.List;
 public class MenteeService {
 
     private final MenteeRepository menteeRepository;
-
-    // 멘티 로그인 구현
-    public Mentee loginMentee(String email, String password) {
-        Mentee mentee = menteeRepository.findByEmailAndPassword(email, password);
-
-        if (mentee == null) {
-            throw new BadCredentialsException("이메일 또는 비밀번호가 잘못되었습니다.");
-        }
-
-        return mentee;
-    }
 
     /**
      * 회원 가입
@@ -47,7 +36,16 @@ public class MenteeService {
         }
     }
 
+    public Mentee loginMentee(String email, String password) {
+        Mentee mentee = menteeRepository.findByEmailAndPassword(email, password);
 
+        if (mentee == null) {
+            return null;
+//            throw new IllegalArgumentException("잘못된 이메일 또는 비밀번호입니다.");
+        }
+
+        return mentee;
+    }
 
     //변경 감지 사용
     public void updateMentee(Long menteeId, String introduce) {

@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import sanhak6.pinwave.domain.Gender;
+import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MentorRepository;
+import sanhak6.pinwave.service.MenteeService;
 import sanhak6.pinwave.service.MentorService;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -27,26 +29,26 @@ public class MentorApiController {
 
     private final MentorRepository mentorRepository;
     private final MentorService mentorService;
+    private final MenteeService menteeService;
 
-    @PostMapping("/login/mentor")
-    public ResponseEntity<LoginResponse> loginMentor(@RequestBody @Valid LoginRequest request) {
-        try {
-            Mentor mentor = mentorService.loginMentor(request.getEmail(), request.getPassword());
+    // 로그인
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
+        Mentor mentor = mentorService.loginMentor(request.getEmail(), request.getPassword());
+        Mentee mentee = menteeService.loginMentee(request.getEmail(), request.getPassword());
 
-            if (mentor != null) {
-                // 로그인이 성공하면 토큰을 생성하고 클라이언트에게 반환
-                String token = generateToken(mentor.getEmail());
-                return ResponseEntity.ok(new LoginResponse(token, null));
-            } else {
-                // 로그인이 실패한 경우 UNAUTHORIZED 상태와 에러 메시지를 반환
-                throw new BadCredentialsException("이메일 또는 비밀번호가 잘못되었습니다.");
-            }
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new LoginResponse(null, "이메일 또는 비밀번호가 잘못되었습니다."));
+        if (mentor != null) {
+            // mentor 반환
+            String token = generateToken(mentor.getEmail());
+            return ResponseEntity.ok(new LoginResponse(token, mentor.getId(), "mentor"));
         }
+        else if (mentee != null) {
+            //mentee 반환
+            String token = generateToken(mentee.getEmail());
+            return ResponseEntity.ok(new LoginResponse(token, mentee.getId(), "mentee"));
+        }
+        else { return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); }
     }
-
 
     // 토큰 생성
     private String generateToken(String email) {
@@ -68,6 +70,7 @@ public class MentorApiController {
 
     @Data
     static class LoginRequest {
+        public String getPassword;
         private String email;
         private String password;
     }
@@ -76,21 +79,17 @@ public class MentorApiController {
     @AllArgsConstructor
     static class LoginResponse {
         private String token;
-        private String errorMessage;
+        private Long userId;
+        private String userType;
     }
-
+//
     @Data
     @AllArgsConstructor
     static class Result<T> {
         private T data;
     }
 
-
-
-
-
-
-
+    // 멘토 회원가입
     @PostMapping("/register/mentor")
     public CreateMentorResponse saveMentor(@RequestBody @Valid CreateMentorRequest request) {
 

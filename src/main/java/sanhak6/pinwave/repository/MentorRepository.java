@@ -18,13 +18,9 @@ public class MentorRepository {
 
     private final EntityManager em;
 
-    public void save(Mentor mentor) {
-        em.persist(mentor);
-    }
+    public void save(Mentor mentor) { em.persist(mentor); }
 
-    public Mentor findOne(Long id) {
-        return em.find(Mentor.class, id);
-    }
+    public Mentor findOne(Long id) { return em.find(Mentor.class, id); }
 
     public List<Mentor> findAll() {
         return em.createQuery("select m from Mentor m", Mentor.class)
@@ -40,6 +36,13 @@ public class MentorRepository {
 
         return mentors.isEmpty() ? null : mentors.get(0);
     }
+
+//    public Mentor findByEmail(String email) {
+//
+//    }
+
+
+
 
 
     //spring data jpa쓰면 더 간단할듯
@@ -63,10 +66,7 @@ public class MentorRepository {
                 .getResultList();
     }
 
-
-
     //==조회 로직==//
-
     /**
      * 마이페이지에서 내가 남긴 리뷰 및 나에게 남긴 리뷰 조회
      */
@@ -94,7 +94,6 @@ public class MentorRepository {
                 .getResultList();
     }
 
-    //필터링
     //필터링
     public List<Mentor> findByFiltering(String career, String job, String region, String field1, String field2, String field3) {
         // JPQL을 이용하여 필터링 조건에 맞는 Mentor를 조회하는 쿼리 작성

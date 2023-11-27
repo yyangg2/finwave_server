@@ -59,8 +59,9 @@ public class Mentor {
     @OneToMany(mappedBy = "reviewMentor")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "checklistMentor")
-    private List<Checklist> checklists = new ArrayList<>();
+//    @OneToMany(mappedBy = "checklistMentor")
+//    private List<Checklist> checklists = new ArrayList<>();@OneToMany(mappedBy = "checklistMentor")
+//    private List<Checklist> checklists = new ArrayList<>();
 
     @OneToMany(mappedBy = "noticeMentor")
     private List<Notice> notices = new ArrayList<>();
@@ -68,8 +69,8 @@ public class Mentor {
     @OneToMany(mappedBy = "messageMentor")
     private List<Message> messages = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "menteeMentorMentor")
-//    private List<MenteeMentor> menteeMentors = new ArrayList<>();
+    @OneToMany(mappedBy = "menteeMentorMentor")
+    private List<MenteeMentor> menteeMentors = new ArrayList<>();
 
 
     //==연관관계 메서드==// (with Review)
@@ -78,11 +79,11 @@ public class Mentor {
         review.setReviewMentor(this); // Review -> Mentor
     }
 
-    //==연관관계 메서드==// (with Checklist)
-    public void addChecklist(Checklist checklist) {
-        checklists.add(checklist); //Mentor -> Checklist
-        checklist.setChecklistMentor(this); //Checklist -> Mentor
-    }
+//    //==연관관계 메서드==// (with Checklist)
+//    public void addChecklist(Checklist checklist) {
+//        checklists.add(checklist); //Mentor -> Checklist
+//        checklist.setChecklistMentor(this); //Checklist -> Mentor
+//    }
 
     //==연관관계 메서드==// (with Notice)
     public void addNotice(Notice notice) {
@@ -121,6 +122,13 @@ public class Mentor {
         this.career = career;
     }
 
+    //==연관관계 메서드==// (with Checklist)
+    public void addChecklist(Checklist checklist) {
+        checklists.add(checklist); //Mentor -> Checklist
+        checklist.setChecklistMentor(this); //Checklist -> Mentor
+    }
+    @OneToMany(mappedBy = "checklistMentor")
+    private List<Checklist> checklists = new ArrayList<>();
 
 
 }
