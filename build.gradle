@@ -8,7 +8,7 @@ group = 'sanhak6'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '1.8'
+	sourceCompatibility = '11'
 }
 
 configurations {
@@ -27,7 +27,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final' // 최신 버전 사용
 
-//	implementation 'mysql:mysql-connector-java'
+	implementation 'mysql:mysql-connector-java'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+//   implementation 'mysql:mysql-connector-java'
 	testImplementation 'junit:junit:4.13.1'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
@@ -35,7 +38,9 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	implementation 'org.springframework.boot:spring-boot-starter-security' // 수정
+
+	implementation 'org.springframework.spring.boot:spring-boot-starter-security'
+//   implementation 'org.springframework.boot:spring-boot-starter-security' // 수정
 	testImplementation 'org.springframework.security:spring-security-test'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
@@ -43,7 +48,7 @@ dependencies {
 
 	implementation 'org.springframework.security:spring-security-core:5.7.11'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 }
 
