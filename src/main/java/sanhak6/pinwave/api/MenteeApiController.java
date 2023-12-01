@@ -66,7 +66,7 @@ public class MenteeApiController {
     /**
      * 조회 API: 마이페이지
      */
-    @GetMapping("/myPage/mentee/{id}")
+    @GetMapping("/mypage/mentee/{id}")
     public MenteeDto myPageMentee(@PathVariable("id") Long id) {
         Mentee findMentee = menteeRepository.findOne(id);
 
@@ -76,7 +76,7 @@ public class MenteeApiController {
     /**
      * 조회 API: 메인페이지
      */
-    @GetMapping("/mainPage/mentee/{id}")
+    @GetMapping("/mainpage/mentee/{id}")
     public List<MenteeDto> mainPageMentee(@PathVariable("id") Long id) {
         Mentee findMentee = menteeRepository.findOne(id);
         List<Mentee> mentees = menteeRepository.findAllWithMentor(findMentee);
@@ -93,7 +93,7 @@ public class MenteeApiController {
         private T data;
     }
 
-    @PostMapping("/main/mypage/profile_mentee")
+    @PostMapping("/main/mypage/profile-mentee")
     public ResponseEntity<Result<String>> registerMenteeProfile(@RequestBody @Valid RegisterMenteeProfileRequest request) {
         try {
             menteeService.updateMenteeProfile(
@@ -124,7 +124,7 @@ public class MenteeApiController {
     }
 
     // 멘티 프로필 열람
-    @GetMapping("/main/mypage/profile_mentee/{menteeId}")
+    @GetMapping("/main/mypage/profile-mentee/{menteeId}")
     public ResponseEntity<Result<MenteeProfileDto>> getMenteeProfile(@PathVariable Long menteeId) {
         try {
             MenteeProfileDto menteeProfileDto = menteeService.getMenteeProfileById(menteeId);

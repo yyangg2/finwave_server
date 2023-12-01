@@ -41,7 +41,7 @@ public class MentorChecklistApiController {
     /**
      * 등록 - API
      */
-    @PostMapping("/menteeProfile/{menteeId}/checklist/{mentorId}")
+    @PostMapping("/menteeprofile/{menteeId}/checklist/{mentorId}")
     public CreateChecklistResponse saveChecklist(@PathVariable("menteeId") Long menteeId, @PathVariable("mentorId") Long mentorId, @RequestBody @Valid CreateChecklistRequest request) {
 
         Checklist checklist = new Checklist();
