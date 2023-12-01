@@ -60,7 +60,7 @@ public class MenteeReviewApiController {
     /**
      * 조회 API - 마이페이지에서 내가 남긴 리뷰
      */
-    @GetMapping("/myPage/mentee/{id}/doReview")
+    @GetMapping("/mypage/mentee/{id}/doReview")
     public List<ReviewMenteeDto> doMenteeReviews(@PathVariable("id") Long id) {
         Mentee findMentee = menteeService.findOne(id);
         List<Review> reviewMentees = reviewRepository.doMenteeReview(findMentee);
@@ -74,7 +74,7 @@ public class MenteeReviewApiController {
     /**
      * 조회 API - 마이페이지에서 나에게 남긴 리뷰
      */
-    @GetMapping("/myPage/mentee/{id}/getReview")
+    @GetMapping("/mypage/mentee/{id}/getReview")
     public List<ReviewMentorDto> getMenteeReviews(@PathVariable("id") Long id) {
         Mentee findMentee = menteeService.findOne(id);
         List<Review> reviewMentors = reviewRepository.getMenteeReview(findMentee);

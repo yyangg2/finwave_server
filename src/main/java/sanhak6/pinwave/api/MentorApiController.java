@@ -118,7 +118,7 @@ public class MentorApiController {
     /**
      * 조회 API: 마이페이지 - 멘토
      */
-    @GetMapping("/myPage/mentor/{id}")
+    @GetMapping("/mypage/mentor/{id}")
     public MentorDto myPageMentor(@PathVariable("id") Long id) {
         Mentor findMentor = mentorRepository.findOne(id);
 
@@ -187,7 +187,7 @@ public class MentorApiController {
     }
 
     // 멘토 포트폴리오 등록 구현
-    @PostMapping("/main/mypage/portfolio_mentor")
+    @PostMapping("/main/mypage/portfolio-mentor")
     public ResponseEntity<Result<String>> registerMentorPortfolio(@RequestBody @Valid RegisterPortfolioRequest request) {
         try {
             mentorService.updateMentorPortfolio(
@@ -225,7 +225,7 @@ public class MentorApiController {
 
 
 
-    @GetMapping("main/mypage/portfolio_mentor/{mentorId}")
+    @GetMapping("main/mypage/portfolio-mentor/{mentorId}")
     public ResponseEntity<Result<MentorPortfolioDto>> getMentorPortfolio(@PathVariable Long mentorId) {
         try {
             MentorPortfolioDto mentorPortfolioDto = mentorService.getMentorPortfolioById(mentorId);
@@ -282,7 +282,7 @@ public class MentorApiController {
     }
 
     //필터링
-    @GetMapping("/mentor_filtering")
+    @GetMapping("/mentor-filtering")
     public ResponseEntity<String> filterMentors(
             @RequestParam(required = false) String career,
             @RequestParam(required = false) String job,
@@ -381,7 +381,7 @@ public class MentorApiController {
     }
 
     // 멘토 필터링 결과 조회를 위한 API
-    @GetMapping("/mentor_filtering/result")
+    @GetMapping("/mentor-filtering/result")
     public ResponseEntity<List<FilteredMentorDto>> filterResults(
             @RequestParam(required = false) String career,
             @RequestParam(required = false) String job,

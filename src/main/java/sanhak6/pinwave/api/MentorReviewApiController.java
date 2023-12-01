@@ -33,7 +33,7 @@ public class MentorReviewApiController {
     /**
      * 등록 API - 리뷰 작성
      */
-    @PostMapping("/menteeProfile/{menteeId}/review/{mentorId}")
+    @PostMapping("/menteeprofile/{menteeId}/review/{mentorId}")
     public CreateMentorReviewResponse saveReviewMentor(@PathVariable("menteeId") Long menteeId, @PathVariable("mentorId") Long mentorId, @RequestBody @Valid CreateMentorReviewRequest request) {
         ReviewMentor reviewMentor = new ReviewMentor();
         Mentor findMentor = mentorService.findOne(mentorId);
@@ -54,7 +54,7 @@ public class MentorReviewApiController {
     /**
      * 조회 API - 마이페이지에서 내가 남긴 리뷰
      */
-    @GetMapping("/myPage/mentor/{id}/doReview")
+    @GetMapping("/mypage/mentor/{id}/doReview")
     public List<ReviewMentorDto> doMentorReviews(@PathVariable("id") Long id) {
         Mentor findMentor = mentorService.findOne(id);
         List<Review> reviewMentors = reviewRepository.doMentorReview(findMentor);
@@ -68,7 +68,7 @@ public class MentorReviewApiController {
     /**
      * 조회 API - 마이페이지에서 나에게 남긴 리뷰
      */
-    @GetMapping("/myPage/mentor/{id}/getReview")
+    @GetMapping("/mypage/mentor/{id}/getReview")
     public List<ReviewMenteeDto> getMentorReviews(@PathVariable("id") Long id) {
         Mentor findMentor = mentorService.findOne(id);
         List<Review> reviewMentees = reviewRepository.getMentorReview(findMentor);

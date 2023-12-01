@@ -29,7 +29,7 @@ public class MenteeChecklistApiController {
     /**
      * 등록 - API : 이건 안 쓸 듯
      */
-    @PostMapping("/mentorProfile/{mentorId}/checklist/{menteeId}")
+    @PostMapping("/mentor-profile/{mentorId}/checklist/{menteeId}")
     public CreateChecklistResponse saveChecklist(@PathVariable("mentorId") Long mentorId, @PathVariable("menteeId") Long menteeId, @RequestBody @Valid CreateChecklistRequest request) {
 
         Checklist checklist = new Checklist();
