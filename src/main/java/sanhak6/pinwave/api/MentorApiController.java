@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -126,7 +128,7 @@ public class MentorApiController {
     }
 
     @Data
-    static class MentorDto {
+    public static class MentorDto {
         private String field1;
         private String field2;
         private String field3;
@@ -406,13 +408,17 @@ public class MentorApiController {
                         filteredMentorDto.setField3(mentor.getField3());
                         return filteredMentorDto;
                     })
-                    .collect(Collectors.toList());
+                    .collect(toList());
 
             return ResponseEntity.ok(mentorDtos);
         } else {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(Collections.emptyList());
         }
     }
+
+
+
+
 
 }
 

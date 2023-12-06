@@ -10,20 +10,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
-import sanhak6.pinwave.domain.Gender;
-import sanhak6.pinwave.domain.Level;
-import sanhak6.pinwave.domain.Mentee;
-import sanhak6.pinwave.domain.MenteeMentor;
+import sanhak6.pinwave.domain.*;
 import sanhak6.pinwave.repository.MenteeRepository;
 import sanhak6.pinwave.repository.MentorRepository;
 import sanhak6.pinwave.service.MenteeService;
 import sanhak6.pinwave.service.MentorService;
 
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -74,7 +75,7 @@ public class MenteeApiController {
     }
 
     /**
-     * 조회 API: 메인페이지
+     * 조회 API: 메인페이지 멘티가 멘토가 누군지 볼수있는거
      */
     @GetMapping("/mainpage/mentee/{id}")
     public List<MenteeDto> mainPageMentee(@PathVariable("id") Long id) {
@@ -86,6 +87,71 @@ public class MenteeApiController {
 
         return result;
     }
+
+    // 멘티메인페이지 - 멘토 랭킹 상위 10명 멘토정보 출력(오름차순)
+    @GetMapping("/mainpage/mentee/{id}/mentor-ranking")
+    public List<MentorDto> getMentorRankingForMentee(@PathVariable("id") Long menteeId) {
+        Mentee findMentee = menteeRepository.findOne(menteeId);
+        List<Mentor> mentors = mentorRepository.findAll();
+
+        // 랭킹이 있는 멘토만 필터링하고 랭킹순으로 상위 10명의 멘토 선택
+        List<MentorDto> result = mentors.stream()
+                .filter(mentor -> mentor.getMentorRank() != null && mentor.getMentorRank() > 0)
+                .sorted(Comparator.comparingInt(Mentor::getMentorRank).reversed())
+                .limit(10)
+                .map(mentor -> new MentorDto(mentor))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+    // 랭킹관련
+    @Data
+    public class MentorDto {
+        private Long id;
+        private String region;
+        private String job;
+        private String career;
+        private String field1;
+        private String field2;
+        private String field3;
+        private Integer mentorRank;
+        private Integer count;
+        private Integer getReviewCount;
+        private Integer doReviewCount;
+        private String name;
+        private String email;
+        private String password;
+        private String phone;
+        private LocalDateTime createDate;
+
+        @Enumerated(EnumType.STRING)
+        private Gender gender;
+
+        public MentorDto(Mentor mentor) {
+            this.id = mentor.getId();
+            this.region = mentor.getRegion();
+            this.job = mentor.getJob();
+            this.career = mentor.getCareer();
+            this.field1 = mentor.getField1();
+            this.field2 = mentor.getField2();
+            this.field3 = mentor.getField3();
+            this.mentorRank = mentor.getMentorRank();
+            this.count = mentor.getCount();
+            this.getReviewCount = mentor.getGetReviewCount();
+            this.doReviewCount = mentor.getDoReviewCount();
+            this.name = mentor.getName();
+            this.email = mentor.getEmail();
+            this.password = mentor.getPassword();
+            this.phone = mentor.getPhone();
+            this.createDate = mentor.getCreateDate();
+            this.gender = mentor.getGender();
+        }
+    }
+
+
+
+
+
 
     @Data
     @AllArgsConstructor

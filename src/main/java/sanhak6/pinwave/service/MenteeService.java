@@ -5,12 +5,18 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sanhak6.pinwave.api.MenteeApiController;
+import sanhak6.pinwave.api.MentorApiController;
 import sanhak6.pinwave.domain.Level;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MenteeRepository;
+import sanhak6.pinwave.repository.MentorRepository;
+
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Transactional
@@ -18,6 +24,7 @@ import java.util.List;
 public class MenteeService {
 
     private final MenteeRepository menteeRepository;
+    private final MentorRepository mentorRepository;
 
     /**
      * 회원 가입
@@ -60,6 +67,9 @@ public class MenteeService {
     //단건 조회
     public Mentee findOne(Long menteeId) { return menteeRepository.findOne(menteeId); }
 
+
+
+
     public class NotFoundException extends RuntimeException {
         public NotFoundException(String message) {
             super(message);
@@ -93,5 +103,9 @@ public class MenteeService {
 
         return new MenteeApiController.MenteeProfileDto(mentee);
     }
+
+
+
+
 
 }

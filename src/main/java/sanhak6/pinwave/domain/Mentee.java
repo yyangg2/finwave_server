@@ -173,4 +173,5 @@ public class Mentee{
 
     @OneToMany(mappedBy = "checklistMentee")
     private List<Checklist> checklists = new ArrayList<>();
+
 }
