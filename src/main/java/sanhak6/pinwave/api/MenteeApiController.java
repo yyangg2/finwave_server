@@ -74,10 +74,9 @@ public class MenteeApiController {
         return new MenteeDto(findMentee);
     }
 
-    /**
-     * 조회 API: 메인페이지 멘티가 멘토가 누군지 볼수있는거
-     */
-    @GetMapping("/mainpage/mentee/{id}")
+
+    // 멘토가 멘토링하는 멘티 정보를 반환하는 api
+    @GetMapping("/mainpage/mentor/{id}")
     public List<MenteeDto> mainPageMentee(@PathVariable("id") Long id) {
         Mentee findMentee = menteeRepository.findOne(id);
         List<Mentee> mentees = menteeRepository.findAllWithMentor(findMentee);
