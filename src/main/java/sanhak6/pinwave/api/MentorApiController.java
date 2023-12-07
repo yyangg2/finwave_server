@@ -11,7 +11,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import sanhak6.pinwave.domain.Gender;
 import sanhak6.pinwave.domain.Mentee;
+import sanhak6.pinwave.domain.MenteeMentor;
 import sanhak6.pinwave.domain.Mentor;
+import sanhak6.pinwave.repository.MenteeRepository;
 import sanhak6.pinwave.repository.MentorRepository;
 import sanhak6.pinwave.service.MenteeService;
 import sanhak6.pinwave.service.MentorService;
@@ -30,6 +32,7 @@ import static java.util.stream.Collectors.toList;
 public class MentorApiController {
 
     private final MentorRepository mentorRepository;
+    private final MenteeRepository menteeRepository;
     private final MentorService mentorService;
     private final MenteeService menteeService;
 
@@ -127,19 +130,36 @@ public class MentorApiController {
         return new MentorDto(findMentor);
     }
 
+    /**
+     * 조회 API: 메인페이지
+     */
+    @GetMapping("/mainpage/mentor/{id}")
+    public List<MentorDto> mainPageMentor(@PathVariable("id") Long id) {
+        Mentor findMentor = mentorRepository.findOne(id);
+        List<Mentor> mentors = mentorRepository.findAllWithMentee(findMentor);
+        List<MentorDto> result = mentors.stream()
+                .map(mentor -> new MentorDto(mentor))
+                .collect(toList());
+
+        return result;
+    }
+
     @Data
-    public static class MentorDto {
+    static class MentorDto {
         private String field1;
         private String field2;
         private String field3;
         private String job;
-        private String career; // integer -> string으로 변경
+        private String career;
         private String name;
         private Integer count;
         private Integer mentorRank;
         private Integer getReviewCount;
         private Integer doReviewCount;
         private String introduce;
+
+        private LocalDateTime createDate;
+        private List<MenteeMentorDto> menteeMentors;
 
         public MentorDto(Mentor mentor) {
             field1 = mentor.getField1();
@@ -153,6 +173,19 @@ public class MentorApiController {
             getReviewCount = mentor.getGetReviewCount();
             doReviewCount = mentor.getDoReviewCount();
             introduce = mentor.getIntroduce();
+            createDate = mentor.getCreateDate();
+            menteeMentors = mentor.getMenteeMentors().stream()
+                    .map(menteeMentor -> new MenteeMentorDto(menteeMentor))
+                    .collect(toList());
+        }
+    }
+
+    @Data
+    static class MenteeMentorDto {
+        private String menteeName ;
+
+        public MenteeMentorDto(MenteeMentor menteeMentor) {
+            menteeName = menteeMentor.getMenteeMentorMentee().getName();
         }
     }
 
@@ -222,10 +255,6 @@ public class MentorApiController {
         private String field3;
         private String region;
     }
-
-
-
-
 
     @GetMapping("main/mypage/portfolio-mentor/{mentorId}")
     public ResponseEntity<Result<MentorPortfolioDto>> getMentorPortfolio(@PathVariable Long mentorId) {
@@ -415,10 +444,6 @@ public class MentorApiController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(Collections.emptyList());
         }
     }
-
-
-
-
 
 }
 

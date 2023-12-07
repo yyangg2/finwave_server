@@ -1,12 +1,9 @@
 package sanhak6.pinwave.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sanhak6.pinwave.api.MentorApiController;
-import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MenteeRepository;
 import sanhak6.pinwave.repository.MentorRepository;
@@ -19,12 +16,8 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class MentorService {
-
-    @PersistenceContext
-    private EntityManager em;
     private final MentorRepository mentorRepository;
     private final MenteeRepository menteeRepository;
-
 
     public Mentor loginMentor(String email, String password) {
         Mentor mentor = mentorRepository.findByEmailAndPassword(email, password);
@@ -113,9 +106,5 @@ public class MentorService {
         return mentorRepository.findByFiltering(
                 career, job, region, field1, field2, field3);
     }
-
-
-    // 추가구현
-
 }
 

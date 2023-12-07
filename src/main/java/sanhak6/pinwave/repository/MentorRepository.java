@@ -1,7 +1,6 @@
 package sanhak6.pinwave.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import sanhak6.pinwave.domain.Mentee;
@@ -67,6 +66,16 @@ public class MentorRepository {
                 .getResultList();
     }
 
+    public List<Mentor> findAllWithMentee(Mentor mentor) {
+        return em.createQuery(
+                "select distinct m from Mentor m" +
+                        " join fetch m.menteeMentors mt" +
+                        " join fetch mt.menteeMentorMentee mtt" +
+                        " where m = :mentor", Mentor.class)
+                .setParameter("mentor", mentor)
+                .getResultList();
+    }
+
     //==조회 로직==//
     /**
      * 마이페이지에서 내가 남긴 리뷰 및 나에게 남긴 리뷰 조회
@@ -116,19 +125,6 @@ public class MentorRepository {
                 .setParameter("field3", field3)
                 .getResultList();
     }
-
-    public List<Mentor> findAllMentees(Mentor mentor) {
-        return em.createQuery(
-                "select distinct m from Mentor m" +
-                        " join fetch m.mentorMentees mt" +
-                        " join fetch mt.mentorMenteeMentee mtt" +
-                        " where m = :mentor", Mentor.class)
-                .setParameter("mentor", mentor)
-                .getResultList();
-    }
-
-
-
 }
 
 

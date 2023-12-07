@@ -10,14 +10,12 @@ import sanhak6.pinwave.domain.review.ReviewMentor;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class MenteeRepository {
 
     private final EntityManager em;
-    private MenteeRepository menteeRepository;
 
     public void save(Mentee mentee) { em.persist(mentee); }
 
@@ -70,6 +68,15 @@ public class MenteeRepository {
         return mentees.isEmpty() ? null : mentees.get(0);
     }
 
+    public List<Mentor> findByRanking(int offset, int limit) {
+        return em.createQuery(
+                "select m from Mentor m" +
+                        " ORDER BY m.mentorRank", Mentor.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
     //==조회 로직==//
     /**
      * 마이페이지에서 내가 남긴 리뷰 및 나에게 남긴 리뷰 조회
@@ -97,8 +104,4 @@ public class MenteeRepository {
         return em.createQuery("select r from Review r where type(r as Mentee).reviewMentee.id = mentee.id", ReviewMentee.class)
                 .getResultList();
     }
-
-
-    //추가구현
-
 }
