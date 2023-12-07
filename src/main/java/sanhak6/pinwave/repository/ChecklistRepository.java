@@ -26,9 +26,9 @@ public class ChecklistRepository {
 
     public List<Checklist> findAllWithTodo(Checklist checklist) {
         return em.createQuery(
-                        "select distinct c from Checklist c" +
-                                " join fetch c.todos d" +
-                                " where c = :checklist", Checklist.class)
+                "select distinct c from Checklist c" +
+                        " join fetch c.todos d" +
+                        " where c = :checklist", Checklist.class)
                 .setParameter("checklist", checklist)
                 .getResultList();
     }

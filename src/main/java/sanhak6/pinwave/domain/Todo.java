@@ -27,6 +27,7 @@ public class Todo {
 
     private String whatTodo;
 
+
 //    private LocalDateTime dueDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate dueDate;
@@ -34,5 +35,6 @@ public class Todo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "checklist_id")
     private Checklist checklist;
+
 
 }

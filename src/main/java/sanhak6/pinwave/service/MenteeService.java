@@ -1,12 +1,15 @@
 package sanhak6.pinwave.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sanhak6.pinwave.api.MenteeApiController;
+import sanhak6.pinwave.domain.Level;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MenteeRepository;
-
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -44,7 +47,6 @@ public class MenteeService {
         return mentee;
     }
 
-
     //변경 감지 사용
     public void updateMentee(Long menteeId, String introduce) {
         Mentee mentee = menteeRepository.findOne(menteeId);
@@ -57,4 +59,39 @@ public class MenteeService {
 
     //단건 조회
     public Mentee findOne(Long menteeId) { return menteeRepository.findOne(menteeId); }
+
+    public class NotFoundException extends RuntimeException {
+        public NotFoundException(String message) {
+            super(message);
+        }
+    }
+
+    public void updateMenteeProfile(Long menteeId, String introduce, String job, String goal, String knowLevel, String region, String assetLevel) {
+        Mentee mentee = menteeRepository.findOne(menteeId);
+
+        if (mentee == null) {
+            throw new NotFoundException("Mentee not found");
+        }
+
+        mentee.setIntroduce(introduce);
+        mentee.setJob(job);
+        mentee.setGoal(goal);
+        mentee.setKnowLevel(assetLevel);
+        mentee.setRegion(region);
+        mentee.setAssetLevel(assetLevel);
+
+        menteeRepository.save(mentee);
+    }
+
+    // 멘티 프로필 열람
+    public MenteeApiController.MenteeProfileDto getMenteeProfileById(Long menteeId) {
+        Mentee mentee = menteeRepository.findOne(menteeId);
+
+        if (mentee == null) {
+            throw new NotFoundException("멘티를 찾을 수 없습니다.");
+        }
+
+        return new MenteeApiController.MenteeProfileDto(mentee);
+    }
+
 }

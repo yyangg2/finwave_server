@@ -1,21 +1,33 @@
 package sanhak6.pinwave.api;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import sanhak6.pinwave.domain.Gender;
+import sanhak6.pinwave.domain.Level;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.MenteeMentor;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.repository.MenteeRepository;
 import sanhak6.pinwave.repository.MentorRepository;
 import sanhak6.pinwave.service.MenteeService;
+import sanhak6.pinwave.service.MentorService;
 
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -25,7 +37,6 @@ public class MenteeApiController {
 
     private final MenteeRepository menteeRepository;
     private final MenteeService menteeService;
-
     private final MentorRepository mentorRepository;
 
     /**
@@ -66,36 +77,67 @@ public class MenteeApiController {
         return new MenteeDto(findMentee);
     }
 
-//    /**
-//     * 조회 API: 메인페이지 - 멘티
-//     */
-//    @GetMapping("/mainPage/mentee/{id}")
-//    public MenteeDto mainPageMentee(@PathVariable("id") Long id) {
-//        Mentee findMentee = menteeRepository.findOne(id);
-//
-//        return new MenteeDto(findMentee);
-//    }
-
     /**
      * 조회 API: 메인페이지
      */
-//    @GetMapping("/mainPage/mentee/{id}")
-//    public MenteeDto mainPageMentee(@PathVariable("id") Long id) {
-//        Mentee findMentee = menteeRepository.findWithMentor(id);
-//
-//        return new MenteeDto(findMentee);
-//    }
 
     @GetMapping("/mainPage/mentee/{id}")
-    public List<MenteeDto> mainPageMentee(@PathVariable("id") Long id) {
+    public Map<String, List<?>> mainPage(@PathVariable("id") Long id,
+                                         @RequestParam(value = "offset", defaultValue = "0") int offset,
+                                         @RequestParam(value = "limit", defaultValue = "10") int limit) {
+        Map<String, List<?>> resultMap = new HashMap<>();
+
+        // 멘토링관계인 멘토들
         Mentee findMentee = menteeRepository.findOne(id);
         List<Mentee> mentees = menteeRepository.findAllWithMentor(findMentee);
-        List<MenteeDto> result = mentees.stream()
+        List<MenteeDto> menteeResult = mentees.stream()
                 .map(mentee -> new MenteeDto(mentee))
-                .collect(toList());
+                .collect(Collectors.toList());
+        resultMap.put("mentees", menteeResult);
 
-        return result;
+        // 랭킹
+        List<Mentor> mentors = menteeRepository.findByRanking(offset, limit);
+        List<MentorDto> mentorResult = mentors.stream()
+                .map(m -> new MentorDto(m))
+                .collect(Collectors.toList());
+        resultMap.put("mentors", mentorResult);
+
+        return resultMap;
     }
+
+    @Data
+    static class MentorDto {
+        private Long mentorId;
+        private String field1;
+        private String field2;
+        private String field3;
+        private String job;
+        private String career;
+        private String name;
+        private Integer count;
+        private Integer mentorRank;
+        private Integer getReviewCount;
+        private Integer doReviewCount;
+        private String introduce;
+        private LocalDateTime createDate;
+
+        public MentorDto(Mentor mentor) {
+            mentorId = mentor.getId();
+            field1 = mentor.getField1();
+            field2 = mentor.getField2();
+            field3 = mentor.getField3();
+            job = mentor.getJob();
+            career = mentor.getCareer();
+            name = mentor.getName();
+            count = mentor.getCount();
+            mentorRank = mentor.getMentorRank();
+            getReviewCount = mentor.getGetReviewCount();
+            doReviewCount = mentor.getDoReviewCount();
+            introduce = mentor.getIntroduce();
+            createDate = mentor.getCreateDate();
+        }
+    }
+
 
 //    @GetMapping("/mainPage/mentee/{id}")
 //    public List<MenteeMentorMenteeDto> mentees() {
@@ -130,14 +172,78 @@ public class MenteeApiController {
 //    }
 
 
-//    @Data
-//    static class MenteeDto2 {
-//
-//
-//    }
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+
+    @PostMapping("/main/mypage/profile_mentee")
+    public ResponseEntity<Result<String>> registerMenteeProfile(@RequestBody @Valid RegisterMenteeProfileRequest request) {
+        try {
+            menteeService.updateMenteeProfile(
+                    request.getMenteeId(),
+                    request.getIntroduce(),
+                    request.getJob(),
+                    request.getGoal(),
+                    request.getKnowLevel(),
+                    request.getRegion(),
+                    request.getAssetLevel()
+            );
+            return ResponseEntity.ok(new Result<>("멘티 프로필이 성공적으로 등록되었습니다."));
+        } catch (MenteeService.NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new Result<>("멘티를 찾을 수 없습니다."));
+        }
+    }
+
 
     @Data
+    public static class RegisterMenteeProfileRequest {
+        private Long menteeId;
+        private String introduce;
+        private String job;
+        private String goal;
+        private String knowLevel;
+        private String region;
+        private String assetLevel;
+    }
+
+    // 멘티 프로필 열람
+    @GetMapping("/main/mypage/profile_mentee/{menteeId}")
+    public ResponseEntity<Result<MenteeProfileDto>> getMenteeProfile(@PathVariable Long menteeId) {
+        try {
+            MenteeProfileDto menteeProfileDto = menteeService.getMenteeProfileById(menteeId);
+            return ResponseEntity.ok(new Result<>(menteeProfileDto));
+        } catch (MenteeService.NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new Result<>(null));
+        }
+    }
+
+    @Data
+    public static class MenteeProfileDto {
+        private Long menteeId;
+        private String introduce;
+        private String job;
+        private String goal;
+        private String knowLevel;
+        private String region;
+        private String assetLevel;
+
+        public MenteeProfileDto(Mentee mentee) {
+            this.menteeId = mentee.getId();
+            this.introduce = mentee.getIntroduce();
+            this.job = mentee.getJob();
+            this.goal = mentee.getGoal();
+            this.knowLevel = mentee.getKnowLevel();
+            this.region = mentee.getRegion();
+            this.assetLevel = mentee.getAssetLevel();
+        }
+    }
+    @Data
     static class MenteeDto {
+        private Long menteeId;
         private String goal;
         private Integer age;
         private String job;
@@ -152,6 +258,7 @@ public class MenteeApiController {
         private List<MenteeMentorDto> menteeMentors;
 
         public MenteeDto(Mentee mentee) {
+            menteeId = mentee.getId();
             goal = mentee.getGoal();
             age = mentee.getAge();
             job = mentee.getJob();

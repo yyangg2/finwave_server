@@ -36,15 +36,34 @@ public class Mentee{
     private String name; //실명
     private String email; //이메일
     private String password; //비밀번호
-//    private String gender;
+    //    private String gender;
     private String phone;
     private LocalDateTime createDate;
 
-    @Enumerated(EnumType.STRING)
-    private Level KnowLevel; //ENUM [HIGH, MEDIUM, LOW]
+    private String interest; // 관심사 추가 - 유림
 
-    @Enumerated(EnumType.STRING)
-    private Level AssetLevel; //ENUM [HIGH, MEDIUM, LOW]
+    //    @Enumerated(EnumType.STRING)
+//    private Level knowLevel; //ENUM [HIGH, MEDIUM, LOW]
+    private String knowLevel;
+
+    public String getKKnowLevel(){
+        return knowLevel;
+    }
+    public void setKnowLevel(String knowLevel) {
+        this.knowLevel = knowLevel;
+    }
+
+    // 유림 수정 - 자산을 레벨 아닌 스트링으로 입력받도록함
+    private String assetLevel;
+
+    public String getAssetLevel(){
+        return assetLevel;
+    }
+
+    public void setAssetLevel(String assetLevel) {
+        this.assetLevel = assetLevel;
+    }
+    // 여기까지 수정함
 
     @Enumerated(EnumType.STRING)
     private Gender gender; //ENUM [MAN, WOMAN]
@@ -63,8 +82,8 @@ public class Mentee{
     @OneToMany(mappedBy = "reviewMentee")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "checklistMentee")
-    private List<Checklist> checklists = new ArrayList<>();
+//    @OneToMany(mappedBy = "checklistMentee")
+//    private List<Checklist> checklists = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "todoMentee")
 //    private List<Todo> checklists = new ArrayList<>();
@@ -85,11 +104,11 @@ public class Mentee{
         review.setReviewMentee(this);
     }
 
-    //==연관관계 메서드==// (with Checklist)
-    public void addChecklist(Checklist checklist) {
-        checklists.add(checklist);
-        checklist.setChecklistMentee(this);
-    }
+//    //==연관관계 메서드==// (with Checklist)
+//    public void addChecklist(Checklist checklist) {
+//        checklists.add(checklist);
+//        checklist.setChecklistMentee(this);
+//    }
 
 //    public void addTodo(Todo todo) {
 //        checklists.add(// TODO: 2023-11-14  );
@@ -139,4 +158,16 @@ public class Mentee{
         this.doReviewCount += 1;
     }
 
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    //==연관관계 메서드==// (with Checklist)
+    public void addChecklist(Checklist checklist) {
+        checklists.add(checklist);
+        checklist.setChecklistMentee(this);
+    }
+
+    @OneToMany(mappedBy = "checklistMentee")
+    private List<Checklist> checklists = new ArrayList<>();
 }

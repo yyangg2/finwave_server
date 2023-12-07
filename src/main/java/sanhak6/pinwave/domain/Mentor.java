@@ -3,6 +3,7 @@ package sanhak6.pinwave.domain;
 import lombok.Getter;
 import lombok.Setter;
 import sanhak6.pinwave.domain.review.Review;
+import sanhak6.pinwave.domain.review.ReviewMentor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,9 +25,9 @@ public class Mentor {
 
     private String region;
 
-    private String job;
+    private String job; // 직업
 
-    private Integer career; //경력
+    private String career; //경력 integer->string수정
 
     private String field1;
     private String field2;
@@ -58,14 +59,16 @@ public class Mentor {
     @OneToMany(mappedBy = "reviewMentor")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "checklistMentor")
-    private List<Checklist> checklists = new ArrayList<>();
+//    @OneToMany(mappedBy = "checklistMentor")
+//    private List<Checklist> checklists = new ArrayList<>();@OneToMany(mappedBy = "checklistMentor")
+//    private List<Checklist> checklists = new ArrayList<>();
 
     @OneToMany(mappedBy = "noticeMentor")
     private List<Notice> notices = new ArrayList<>();
 
     @OneToMany(mappedBy = "messageMentor")
     private List<Message> messages = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "menteeMentorMentor") //MenteeMentor -> Mentor 단방향이면 필요없음
     private List<MenteeMentor> menteeMentors = new ArrayList<>();
@@ -77,11 +80,11 @@ public class Mentor {
         review.setReviewMentor(this); // Review -> Mentor
     }
 
-    //==연관관계 메서드==// (with Checklist)
-    public void addChecklist(Checklist checklist) {
-        checklists.add(checklist); //Mentor -> Checklist
-        checklist.setChecklistMentor(this); //Checklist -> Mentor
-    }
+//    //==연관관계 메서드==// (with Checklist)
+//    public void addChecklist(Checklist checklist) {
+//        checklists.add(checklist); //Mentor -> Checklist
+//        checklist.setChecklistMentor(this); //Checklist -> Mentor
+//    }
 
     //==연관관계 메서드==// (with Notice)
     public void addNotice(Notice notice) {
@@ -126,5 +129,18 @@ public class Mentor {
     public void addDoStock() {
         this.doReviewCount += 1;
     }
+
+    public void setCareer(String career) {
+        this.career = career;
+    }
+
+    //==연관관계 메서드==// (with Checklist)
+    public void addChecklist(Checklist checklist) {
+        checklists.add(checklist); //Mentor -> Checklist
+        checklist.setChecklistMentor(this); //Checklist -> Mentor
+    }
+    @OneToMany(mappedBy = "checklistMentor")
+    private List<Checklist> checklists = new ArrayList<>();
+
 
 }

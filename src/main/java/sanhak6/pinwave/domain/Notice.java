@@ -32,4 +32,23 @@ public class Notice {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "message_id")
     private Message message;
+
+    //==생성 메서드==//
+    public static Notice createNoticeMentoring(Mentee mentee, Mentor mentor) {
+        Notice notice = new Notice();
+        notice.setNoticeMentee(mentee);
+        notice.setNoticeMentor(mentor);
+        notice.setNoticeType(NoticeType.MENTORING);
+
+        return notice;
+    }
+
+    //==생성 메서드==//
+    public static Notice createNoticeMessage(Message message) {
+        Notice notice = new Notice();
+        notice.setMessage(message);
+        notice.setNoticeType(NoticeType.MESSAGE);
+
+        return notice;
+    }
 }

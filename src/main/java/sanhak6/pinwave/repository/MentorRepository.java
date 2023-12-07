@@ -1,6 +1,7 @@
 package sanhak6.pinwave.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
@@ -8,6 +9,7 @@ import sanhak6.pinwave.domain.review.ReviewMentee;
 import sanhak6.pinwave.domain.review.ReviewMentor;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -58,9 +60,19 @@ public class MentorRepository {
 
     public List<Mentor> findAllMentorWithMentee() {
         return em.createQuery(
-                        "select m from Mentor m" +
+                "select m from Mentor m" +
+                        " join fetch m.menteeMentors mt" +
+                        " join fetch mt.mentee mtt", Mentor.class)
+                .getResultList();
+    }
+
+    public List<Mentor> findAllWithMentee(Mentor mentor) {
+        return em.createQuery(
+                        "select distinct m from Mentor m" +
                                 " join fetch m.menteeMentors mt" +
-                                " join fetch mt.mentee mtt", Mentor.class)
+                                " join fetch mt.menteeMentorMentee mtt" +
+                                " where m = :mentor", Mentor.class)
+                .setParameter("mentor", mentor)
                 .getResultList();
     }
 
@@ -91,4 +103,28 @@ public class MentorRepository {
         return em.createQuery("select r from Review r where type(r as Mentor).reviewMentor.id = mentor.id", ReviewMentor.class)
                 .getResultList();
     }
+
+    //필터링
+    public List<Mentor> findByFiltering(String career, String job, String region, String field1, String field2, String field3) {
+        // JPQL을 이용하여 필터링 조건에 맞는 Mentor를 조회하는 쿼리 작성
+        // 필터링 조건에 따라 WHERE 절을 동적으로 구성
+        String jpql = "SELECT m FROM Mentor m WHERE " +
+                "(:career is null or m.career = :career) and " +
+                "(:job is null or m.job = :job) and " +
+                "(:region is null or m.region = :region) and " +
+                "(:field1 is null or m.field1 = :field1) and " +
+                "(:field2 is null or m.field2 = :field2) and " +
+                "(:field3 is null or m.field3 = :field3)";
+
+        return em.createQuery(jpql, Mentor.class)
+                .setParameter("career", career)
+                .setParameter("job", job)
+                .setParameter("region", region)
+                .setParameter("field1", field1)
+                .setParameter("field2", field2)
+                .setParameter("field3", field3)
+                .getResultList();
+    }
 }
+
+

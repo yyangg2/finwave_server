@@ -56,7 +56,6 @@ class MentorServiceTest {
         IllegalStateException thrown = assertThrows(IllegalStateException.class, () -> mentorService.join(memberB));
         assertEquals("이미 존재하는 회원입니다.", thrown.getMessage());
     }
-
     @Test
     void 회원_로그인() {
         // Given
@@ -114,5 +113,22 @@ class MentorServiceTest {
         // Then
         assertNull(token);
     }
+
+    // 멘토 포트폴리오 등록 테스트
+    @Test
+    public void testLoginMentor() {
+        // 테스트용 멘토 생성
+        Mentor mentor = new Mentor();
+        mentor.setEmail("test@example.com");
+        mentor.setPassword("testpassword");
+        mentorService.join(mentor);
+
+        // 로그인 테스트
+        Mentor loggedInMentor = mentorService.loginMentor("test@example.com", "testpassword");
+        assertNotNull(loggedInMentor);
+        assertEquals("test@example.com", loggedInMentor.getEmail());
+    }
+
+    
 
 }

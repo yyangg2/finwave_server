@@ -51,10 +51,10 @@ public class MenteeRepository {
 
     public List<Mentee> findAllWithMentor(Mentee mentee) {
         return em.createQuery(
-                        "select distinct m from Mentee m" +
-                                " join fetch m.menteeMentors mt" +
-                                " join fetch mt.menteeMentorMentor mtt" +
-                                " where m = :mentee", Mentee.class)
+                "select distinct m from Mentee m" +
+                        " join fetch m.menteeMentors mt" +
+                        " join fetch mt.menteeMentorMentor mtt" +
+                        " where m = :mentee", Mentee.class)
                 .setParameter("mentee", mentee)
                 .getResultList();
     }
@@ -66,6 +66,15 @@ public class MenteeRepository {
                 .getResultList();
 
         return mentees.isEmpty() ? null : mentees.get(0);
+    }
+
+    public List<Mentor> findByRanking(int offset, int limit) {
+        return em.createQuery(
+                        "select m from Mentor m" +
+                                " ORDER BY m.mentorRank", Mentor.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
     }
 
     //==조회 로직==//

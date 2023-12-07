@@ -61,9 +61,11 @@ public class MenteeChecklistApiController {
 
     @Data
     static class ChecklistDto {
+        private Long checklistId;
         private List<TodoDto> todos;
 
         public ChecklistDto(Checklist checklist) {
+            checklistId = checklist.getId();
             todos = checklist.getTodos().stream()
                     .map(todo -> new TodoDto(todo))
                     .collect(toList());
@@ -72,6 +74,7 @@ public class MenteeChecklistApiController {
 
     @Data
     static class TodoDto {
+        private Long todoId;
         private String whatTodo;
         private Check mentorCheck; //ENUM [YES, NO]
         private Check menteeCheck; //ENUM [YES, NO]
@@ -79,6 +82,7 @@ public class MenteeChecklistApiController {
         private LocalDate dueDate;
 
         public TodoDto(Todo todo) {
+            todoId = todo.getId();
             whatTodo = todo.getWhatTodo();
             mentorCheck = todo.getMentorCheck();
             menteeCheck = todo.getMenteeCheck();
@@ -104,4 +108,8 @@ public class MenteeChecklistApiController {
         }
 
     }
+
 }
+
+
+
