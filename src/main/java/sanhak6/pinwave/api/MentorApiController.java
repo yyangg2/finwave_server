@@ -270,6 +270,7 @@ public class MentorApiController {
     @Data
     public static class MentorPortfolioDto {
         private Long mentorId;
+        private String name;
         private String introduce;
         private String career;
         private String job;
@@ -283,6 +284,7 @@ public class MentorApiController {
 
         public MentorPortfolioDto(Mentor mentor) {
             this.mentorId = mentor.getId();
+            this.name = mentor.getName();
             this.introduce = mentor.getIntroduce();
             this.career = mentor.getCareer();
             this.job = mentor.getJob();
