@@ -263,6 +263,7 @@ public class MenteeApiController {
     @Data
     public static class MenteeProfileDto {
         private Long menteeId;
+        private String name;
         private String introduce;
         private String job;
         private String goal;
@@ -272,6 +273,7 @@ public class MenteeApiController {
 
         public MenteeProfileDto(Mentee mentee) {
             this.menteeId = mentee.getId();
+            this.name = mentee.getName();
             this.introduce = mentee.getIntroduce();
             this.job = mentee.getJob();
             this.goal = mentee.getGoal();
