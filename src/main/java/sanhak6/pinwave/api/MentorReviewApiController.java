@@ -92,16 +92,16 @@ public class MentorReviewApiController {
         private float star;
         private LocalDateTime createDate;
         private String content;
-//        private Mentee mentee;
-//        private Mentor mentor;
+        private String mentee;
+        private String mentor;
 
         public ReviewMenteeDto(Review reviewMentee) {
             reviewMenteeId = reviewMentee.getId();
             star = reviewMentee.getStar();
             createDate = reviewMentee.getCreateDate();
             content = reviewMentee.getContent();
-//            mentee = reviewMentee.getReviewMentee();
-//            mentor = reviewMentee.getReviewMentor();
+            mentee = reviewMentee.getReviewMentee().getName();
+            mentor = reviewMentee.getReviewMentor().getName();
         }
     }
 
@@ -111,16 +111,16 @@ public class MentorReviewApiController {
         private float star;
         private LocalDateTime createDate;
         private String content;
-//        private Mentee mentee;
-//        private Mentor mentor;
+        private String mentee;
+        private String mentor;
 
         public ReviewMentorDto(Review reviewMentor) {
             reviewMentorId = reviewMentor.getId();
             star = reviewMentor.getStar();
             createDate = reviewMentor.getCreateDate();
             content = reviewMentor.getContent();
-//            mentor = reviewMentor.getReviewMentor();
-//            mentee = reviewMentor.getReviewMentee();
+            mentee = reviewMentor.getReviewMentee().getName();
+            mentor = reviewMentor.getReviewMentor().getName();
         }
 
     }
