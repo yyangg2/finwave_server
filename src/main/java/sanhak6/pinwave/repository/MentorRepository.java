@@ -3,6 +3,7 @@ package sanhak6.pinwave.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import sanhak6.pinwave.api.MentorApiController;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Mentor;
 import sanhak6.pinwave.domain.review.ReviewMentee;

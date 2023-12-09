@@ -12,6 +12,7 @@ import sanhak6.pinwave.repository.MenteeRepository;
 import sanhak6.pinwave.repository.MentorRepository;
 import sanhak6.pinwave.repository.ReviewRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -52,14 +53,14 @@ public class ReviewService {
     /**
      * 리뷰
      */
-    public Long mentorReview(Long mentorId, Long menteeId, float star, String content) {
+    public Long mentorReview(Long mentorId, Long menteeId, float star, String content, LocalDateTime createDate) {
 
         //엔티티 조회
         Mentor mentor = mentorRepository.findOne(mentorId);
         Mentee mentee = menteeRepository.findOne(menteeId);
 
         //리뷰 생성
-        Review review = Review.createReviewMentor(mentor, mentee, star, content);
+        Review review = Review.createReviewMentor(mentor, mentee, star, content, createDate);
 
         //리뷰 저장
         reviewRepository.save(review);
@@ -67,14 +68,14 @@ public class ReviewService {
         return review.getId();
     }
 
-    public Long menteeReview(Long menteeId, Long mentorId, float star, String content) {
+    public Long menteeReview(Long menteeId, Long mentorId, float star, String content, LocalDateTime createDate) {
 
         //엔티티 조회
         Mentor mentor = mentorRepository.findOne(mentorId);
         Mentee mentee = menteeRepository.findOne(menteeId);
 
         //리뷰 생성
-        Review review = Review.createReviewMentee(mentee, mentor, star, content);
+        Review review = Review.createReviewMentee(mentee, mentor, star, content, createDate);
 
         //리뷰 저장
         reviewRepository.save(review);

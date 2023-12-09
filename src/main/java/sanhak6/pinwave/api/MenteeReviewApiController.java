@@ -39,7 +39,7 @@ public class MenteeReviewApiController {
     /**
      * 등록 API - 멘티가 멘토 프로필 들어가서 리뷰 작성하는거임
      */
-    @PostMapping("/mentorProfile/{mentorId}/review/{menteeId}")
+    @PostMapping("/mentor-profile/{mentorId}/review/{menteeId}")
     public CreateMenteeReviewResponse saveReviewMentee(@PathVariable("mentorId") Long mentorId, @PathVariable("menteeId") Long menteeId, @RequestBody @Valid CreateMenteeReviewRequest request) {
         ReviewMentee reviewMentee = new ReviewMentee();
         Mentee findMentee = menteeService.findOne(menteeId);
@@ -60,7 +60,7 @@ public class MenteeReviewApiController {
     /**
      * 조회 API - 마이페이지에서 내가 남긴 리뷰
      */
-    @GetMapping("/mypage/mentee/{id}/doReview")
+    @GetMapping("/mypage/mentee/{id}/do-review")
     public List<ReviewMenteeDto> doMenteeReviews(@PathVariable("id") Long id) {
         Mentee findMentee = menteeService.findOne(id);
         List<Review> reviewMentees = reviewRepository.doMenteeReview(findMentee);
@@ -74,7 +74,7 @@ public class MenteeReviewApiController {
     /**
      * 조회 API - 마이페이지에서 나에게 남긴 리뷰
      */
-    @GetMapping("/mypage/mentee/{id}/getReview")
+    @GetMapping("/mypage/mentee/{id}/get-review")
     public List<ReviewMentorDto> getMenteeReviews(@PathVariable("id") Long id) {
         Mentee findMentee = menteeService.findOne(id);
         List<Review> reviewMentors = reviewRepository.getMenteeReview(findMentee);
@@ -91,16 +91,16 @@ public class MenteeReviewApiController {
         private float star;
         private LocalDateTime createDate;
         private String content;
-//        private Mentee mentee;
-//        private Mentor mentor;
+        private String mentee;
+        private String mentor;
 
         public ReviewMenteeDto(Review reviewMentee) {
             reviewMenteeId = reviewMentee.getId();
             star = reviewMentee.getStar();
             createDate = reviewMentee.getCreateDate();
             content = reviewMentee.getContent();
-//            mentee = reviewMentee.getReviewMentee();
-//            mentor = reviewMentee.getReviewMentor();
+            mentor = reviewMentee.getReviewMentor().getName();
+            mentee = reviewMentee.getReviewMentee().getName();
         }
     }
 
@@ -110,16 +110,16 @@ public class MenteeReviewApiController {
         private float star;
         private LocalDateTime createDate;
         private String content;
-//        private Mentee mentee;
-//        private Mentor mentor;
+        private String mentee;
+        private String mentor;
 
         public ReviewMentorDto(Review reviewMentor) {
             reviewMentorId = reviewMentor.getId();
             star = reviewMentor.getStar();
             createDate = reviewMentor.getCreateDate();
             content = reviewMentor.getContent();
-//            mentor = reviewMentor.getReviewMentor();
-//            mentee = reviewMentor.getReviewMentee();
+            mentor = reviewMentor.getReviewMentor().getName();
+            mentee = reviewMentor.getReviewMentee().getName();
         }
 
     }
@@ -144,4 +144,5 @@ public class MenteeReviewApiController {
         }
 
     }
+
 }
