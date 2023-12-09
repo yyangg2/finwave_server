@@ -182,9 +182,11 @@ public class MentorApiController {
 
     @Data
     static class MenteeMentorDto {
+        private Long menteeId;
         private String menteeName ;
 
         public MenteeMentorDto(MenteeMentor menteeMentor) {
+            menteeId = menteeMentor.getMenteeMentorMentee().getId();
             menteeName = menteeMentor.getMenteeMentorMentee().getName();
         }
     }
