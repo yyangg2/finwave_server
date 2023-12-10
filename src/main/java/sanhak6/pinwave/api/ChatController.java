@@ -1,12 +1,15 @@
 package sanhak6.pinwave.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sanhak6.pinwave.domain.ChatRoom;
@@ -45,5 +48,16 @@ public class ChatController {
         message = messageService.saveMessage(message);
 
         return message;
+    }
+
+    @GetMapping("/room/{roomId}")
+    public ResponseEntity<ChatRoom> getChatRoom(@PathVariable String roomId) {
+        ChatRoom chatRoom = chatRoomService.getChatRoomById(roomId);
+
+        if (chatRoom != null) {
+            return ResponseEntity.ok(chatRoom);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

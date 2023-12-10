@@ -86,7 +86,7 @@ public class MenteeService {
         mentee.setIntroduce(introduce);
         mentee.setJob(job);
         mentee.setGoal(goal);
-        mentee.setKnowLevel(assetLevel);
+        mentee.setKnowLevel(knowLevel);
         mentee.setRegion(region);
         mentee.setAssetLevel(assetLevel);
 

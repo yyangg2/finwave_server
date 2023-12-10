@@ -46,10 +46,11 @@ public class Mentee{
 //    private Level knowLevel; //ENUM [HIGH, MEDIUM, LOW]
     private String knowLevel;
 
-    public String getKKnowLevel(){
+    public String getKnowLevel(){
         return knowLevel;
     }
     public void setKnowLevel(String knowLevel) {
+
         this.knowLevel = knowLevel;
     }
 
@@ -61,6 +62,7 @@ public class Mentee{
     }
 
     public void setAssetLevel(String assetLevel) {
+
         this.assetLevel = assetLevel;
     }
     // 여기까지 수정함

@@ -23,4 +23,9 @@ public class ChatRoomService {
             return chatRoomRepository.save(newChatRoom);
         });
     }
+
+    public ChatRoom getChatRoomById(String roomId) {
+        Long roomIdLong = Long.parseLong(roomId);
+        return chatRoomRepository.findById(roomIdLong).orElse(null);
+    }
 }
