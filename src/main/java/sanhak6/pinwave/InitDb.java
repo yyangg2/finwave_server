@@ -64,15 +64,15 @@ public class InitDb {
 
         public void dbInit0() {
             Mentee mentee1 = createMentee("kau25@naver.com", "6666", "James", "01066667777", Gender.MAN,
-                    "주식", 29, "기타", 5, 3, 4, 3, "안녕하세요, 금융 멘토링 프로그램에 참여하게 된 저는 항상 금융 세계에 대한 탐구와 야망을 품은 열정적인 개인입니다. 금융의 복잡성에 도전하고자 하는 강한 욕망과 함께, 미래를 위해 지속적으로 투자하고 싶어하는 목표를 갖고 있습니다." +
-                            "저는 리스크 관리와 금융 안전성을 중시하며, 이를 바탕으로 효율적이고 안정적인 투자 전략을 개발하고자 노력하고 있습니다. 또한, 다양한 금융 상품과 시장 동향에 대한 지식을 확장하여 최신 동향을 반영한 결정을 내릴 수 있도록 노력하고 있습니다." +
-                            "멘토와의 소통을 통해 나만의 투자 철학을 더욱 세련되게 발전시키고, 금융적인 안목을 높여 나가고자 합니다. 멘토의 지혜와 지도 아래에서 더 나은 금융적 안정성을 달성하기 위해 열심히 노력할 것을 약속드립니다. 감사합니다.", LocalDateTime.now());
+                    "주식", 29, "기타", 5, 3, 4, 3, "안녕하세요, 금융 멘토링 프로그램에 참여하게 된 저는 항상 금융 세계에 대한 탐구와 야망을 품은 열정적인 개인입니다. 금융의 복잡성에 도전하고자 하는 강한 욕망과 함께, 미래를 위해 지속적으로 투자하고 싶어하는 목표를 갖고 있습니다.\n" +
+                            "저는 리스크 관리와 금융 안전성을 중시하며, 이를 바탕으로 효율적이고 안정적인 투자 전략을 개발하고자 노력하고 있습니다. 또한, 다양한 금융 상품과 시장 동향에 대한 지식을 확장하여 최신 동향을 반영한 결정을 내릴 수 있도록 노력하고 있습니다.\n" +
+                            "멘토와의 소통을 통해 나만의 투자 철학을 더욱 세련되게 발전시키고, 금융적인 안목을 높여 나가고자 합니다. 멘토의 지혜와 지도 아래에서 더 나은 금융적 안정성을 달성하기 위해 열심히 노력할 것을 약속드립니다. 감사합니다.\n", LocalDateTime.now());
             em.persist(mentee1);
 
             Mentee mentee2 = createMentee("kau26@naver.com", "6666", "Bailey", "01066667777", Gender.MAN,
-                    "대출", 50, "기타", 5, 3, 4, 3, "저는 금융에 대한 흥미와 재테크(financial technology), 투자에 대한 강한 관심을 가진 개인으로, 적극적이고 목표 지향적인 성격을 가지고 있습니다. 일상의 금융 의사결정에 있어서는 신중한 성향으로 접근하며, 목표를 달성하기 위해 노력하는 것을 중요하게 생각합니다." +
-                            "금융 멘토링 프로그램에 참여하면서 전문가의 지도를 받아 더욱 효과적인 재테크(financial technology) 전략과 투자 방법을 습득하고자 하는 목표를 가지고 있습니다. 다양한 금융 상품과 시장 동향에 대한 이해를 높이며, 개인적인 금융 목표를 달성하기 위해 노력하고 있습니다. 목표 지향적인 성격을 바탕으로 멘토링을 통해 성장의 기회를 극대화하고, 금융적인 안목을 높여 미래의 재무적 안정성을 구축하고자 합니다." +
-                            "멘토와의 소통과 지도를 통해 나만의 투자 철학을 더욱 발전시키고, 금융적인 지식을 심화해 나가고자 하는 목표를 가지고 있습니다. 제 경험과 노력을 통해 멘토링 프로그램을 통해 제 금융적인 역량을 향상시키고, 미래를 위한 지혜를 쌓아가는데 적극적으로 참여하겠습니다. 감사합니다.", LocalDateTime.now());
+                    "대출", 50, "기타", 5, 3, 4, 3, "저는 금융에 대한 흥미와 재테크(financial technology), 투자에 대한 강한 관심을 가진 개인으로, 적극적이고 목표 지향적인 성격을 가지고 있습니다. 일상의 금융 의사결정에 있어서는 신중한 성향으로 접근하며, 목표를 달성하기 위해 노력하는 것을 중요하게 생각합니다.\n" +
+                            "금융 멘토링 프로그램에 참여하면서 전문가의 지도를 받아 더욱 효과적인 재테크(financial technology) 전략과 투자 방법을 습득하고자 하는 목표를 가지고 있습니다. 다양한 금융 상품과 시장 동향에 대한 이해를 높이며, 개인적인 금융 목표를 달성하기 위해 노력하고 있습니다. 목표 지향적인 성격을 바탕으로 멘토링을 통해 성장의 기회를 극대화하고, 금융적인 안목을 높여 미래의 재무적 안정성을 구축하고자 합니다.\n" +
+                            "멘토와의 소통과 지도를 통해 나만의 투자 철학을 더욱 발전시키고, 금융적인 지식을 심화해 나가고자 하는 목표를 가지고 있습니다. 제 경험과 노력을 통해 멘토링 프로그램을 통해 제 금융적인 역량을 향상시키고, 미래를 위한 지혜를 쌓아가는데 적극적으로 참여하겠습니다. 감사합니다.\n", LocalDateTime.now());
             em.persist(mentee2);
 
             Mentor mentor1 = createMentor("kau3@naver.com", "3333", "Trex", "01033334444", Gender.MAN,
@@ -89,9 +89,26 @@ public class InitDb {
                     "안녕하세요! 여러분들의 금융 여정에 함께하게 된 멘토로서 매우 기쁩니다." +
                             "나는 금융 분야에서의 전문 지식을 바탕으로 재테크(financial technology)와 투자에 대한 실질적이고 현실적인 조언을 제공하는 것을 즐깁니다. 금융 전략의 핵심과 효율적인 자산 관리에 대한 이해를 통해 여러분의 재무적인 목표를 달성하는 데 도움이 되고 싶어졌어요." +
                             "내 성격은 적극적이고 실용적인 편입니다. 무엇보다도, 여러분의 목표 달성을 위해 힘쓰는 모습을 지켜보는 것이 가장 큰 보람입니다. 금융의 복잡성을 단순하게 전달하고, 실제로 적용 가능한 솔루션을 제시하는 것을 목표로 하고 있습니다." +
-                            "가치관 측면에서는 돈을 통한 가치 창출을 중요하게 여기며, 금융 지식을 활용하여 개인과 사회적인 성장에 기여하고자 합니다. 함께 일하면서 여러분의 금융적인 목표를 함께 성취하고, 돈이 주는 자유로움을 함께 누려 나가길 기대합니다. 함께 여행하는 동안 서로에게 영감을 주며, 긍정적이고 풍요로운 여정을 만들어 나가요!"
-                            , LocalDateTime.now());
+                            "가치관 측면에서는 돈을 통한 가치 창출을 중요하게 여기며, 금융 지식을 활용하여 개인과 사회적인 성장에 기여하고자 합니다. 함께 일하면서 여러분의 금융적인 목표를 함께 성취하고, 돈이 주는 자유로움을 함께 누려 나가길 기대합니다. 함께 여행하는 동안 서로에게 영감을 주며, 긍정적이고 풍요로운 여정을 만들어 나가요!" +
+                            "\n", LocalDateTime.now());
             em.persist(mentor2);
+
+            Mentor mentor3 = createMentor("kau1@naver.com", "1111", "Ken", "01011112222", Gender.MAN,
+                    "주식", "대출", "부동산", "펀드매니저", "20년 이상", 5, 1, 4, 2,
+                    "안녕하세요, 저는 Ken입니다." +
+                            "저는 항상 재정적인 문제에 대해 차분하고 분석적인 접근을 해왔습니다." +
+                            "지난 15년 동안 저는 투자 은행 업무와 자산 관리 업무를 할 수 있는 특권을 누려 왔습니다." +
+                            "저에게 재무 안정성과 계획은 단순히 유행어가 아니라 안전한 재무 미래의 초석이 됩니다." +
+                            "저는 특히 사람들이 재무 포트폴리오를 다양화하고 의미 있는 재무 목표를 세울 수 있도록 돕고 싶습니다." +
+                            "궁금한 점이 있거나 안내가 필요하시면 제 경험과 통찰력을 공유하여 금융 여정에 도움을 드리고자 합니다.", LocalDateTime.now());
+            em.persist(mentor3);
+
+            Mentor mentor4 = createMentor("kau2@naver.com", "2222", "Holly", "01022223333", Gender.WOMAN,
+                    "대출", "부동산", "주식", "은행원", "1년", 4, 2, 3, 3,
+                    "안녕하세요, 저는 당신의 부동산 금융 및 주택 담보 대출 전문가인 Holly입니다." +
+                            "저의 접근 방식은 모두 정확성과 명확성에 관한 것입니다. 왜냐하면 저는 감정적이거나 모호한 이야기를 좋아하는 사람이 아니기 때문입니다." +
+                            "제 분야에서 15년 동안 쌓아온 탄탄한 경험을 바탕으로, 저는 제 전문성에 큰 자부심을 느끼며, 부동산 금융 및 주택 담보 대출 분야에서 충분한 정보를 바탕으로 의사 결정을 내리는 데 필요한 가장 정확하고 신뢰할 수 있는 통찰력을 제공하는 데 전념하고 있습니다.", LocalDateTime.now());
+            em.persist(mentor4);
 
             //멘토링 관계 맺기
             MenteeMentor menteeMentor1 = MenteeMentor.createMenteeMentor(mentee1, mentor1);
@@ -102,16 +119,32 @@ public class InitDb {
             em.persist(menteeMentor3);
             MenteeMentor menteeMentor4 = MenteeMentor.createMenteeMentor(mentee2, mentor2);
             em.persist(menteeMentor4);
+            MenteeMentor menteeMentor5 = MenteeMentor.createMenteeMentor(mentee1, mentor3);
+            em.persist(menteeMentor5);
+            MenteeMentor menteeMentor6 = MenteeMentor.createMenteeMentor(mentee1, mentor4);
+            em.persist(menteeMentor6);
+            MenteeMentor menteeMentor7 = MenteeMentor.createMenteeMentor(mentee2, mentor3);
+            em.persist(menteeMentor7);
+            MenteeMentor menteeMentor8 = MenteeMentor.createMenteeMentor(mentee2, mentor4);
+            em.persist(menteeMentor8);
 
             //리뷰 작성
             ReviewMentee reviewMentee1 = ReviewMentee.createReviewMentee(mentee1, mentor1, 5, "멘토님과 함께한 멘토링 수업은 정말로 유익하고 인상적이었습니다. 멘토님은 금융 분야에 대한 깊은 지식을 바탕으로 재테크(financial technology)와 투자에 대한 현실적인 조언을 제공해 주셨습니다. 특히, 목표 지향적인 성향을 가진 저에게 맞춤형 조언을 해주셔서 미래의 재무적 안정성을 구축하는 데 큰 도움이 되었습니다. 멘토님의 열정과 실용적인 접근 방식은 매우 감명깊었고, 이제 더 나은 금융적인 결정을 내릴 수 있게 되었습니다.", LocalDateTime.now());
             em.persist(reviewMentee1);
             ReviewMentee reviewMentee2 = ReviewMentee.createReviewMentee(mentee1, mentor2, 5, "멘토님과 함께한 멘토링 수업은 정말로 유익하고 인상적이었습니다. 멘토님은 금융 분야에 대한 깊은 지식을 바탕으로 재테크(financial technology)와 투자에 대한 현실적인 조언을 제공해 주셨습니다. 특히, 목표 지향적인 성향을 가진 저에게 맞춤형 조언을 해주셔서 미래의 재무적 안정성을 구축하는 데 큰 도움이 되었습니다. 멘토님의 열정과 실용적인 접근 방식은 매우 감명깊었고, 이제 더 나은 금융적인 결정을 내릴 수 있게 되었습니다.", LocalDateTime.now());
             em.persist(reviewMentee2);
+            ReviewMentee reviewMentee5 = ReviewMentee.createReviewMentee(mentee1, mentor3, 5, "멘토님과 함께한 멘토링 수업은 정말로 유익하고 인상적이었습니다. 멘토님은 금융 분야에 대한 깊은 지식을 바탕으로 재테크(financial technology)와 투자에 대한 현실적인 조언을 제공해 주셨습니다. 특히, 목표 지향적인 성향을 가진 저에게 맞춤형 조언을 해주셔서 미래의 재무적 안정성을 구축하는 데 큰 도움이 되었습니다. 멘토님의 열정과 실용적인 접근 방식은 매우 감명깊었고, 이제 더 나은 금융적인 결정을 내릴 수 있게 되었습니다.", LocalDateTime.now());
+            em.persist(reviewMentee5);
+            ReviewMentee reviewMentee6 = ReviewMentee.createReviewMentee(mentee1, mentor4, 5, "멘토님과 함께한 멘토링 수업은 정말로 유익하고 인상적이었습니다. 멘토님은 금융 분야에 대한 깊은 지식을 바탕으로 재테크(financial technology)와 투자에 대한 현실적인 조언을 제공해 주셨습니다. 특히, 목표 지향적인 성향을 가진 저에게 맞춤형 조언을 해주셔서 미래의 재무적 안정성을 구축하는 데 큰 도움이 되었습니다. 멘토님의 열정과 실용적인 접근 방식은 매우 감명깊었고, 이제 더 나은 금융적인 결정을 내릴 수 있게 되었습니다.", LocalDateTime.now());
+            em.persist(reviewMentee6);
             ReviewMentee reviewMentee3 = ReviewMentee.createReviewMentee(mentee2, mentor1, 5, "멘토님과의 멘토링 경험은 매우 인상적이었습니다. 금융 분야의 복잡성을 단순하게 전달하고 실제로 적용 가능한 솔루션을 제시하는 멘토님의 명쾌한 설명은 금융에 대한 나의 이해를 크게 향상시켰습니다. 가치 창출을 중요시하는 멘토님의 가치관은 돈을 통한 가치 창출에 대한 새로운 시각을 제공했습니다. 함께한 여정에서 멘토님의 열정과 지혜에 영감을 받아, 미래의 금융적인 목표에 대한 더 큰 자신감을 갖게 되었습니다", LocalDateTime.now());
             em.persist(reviewMentee3);
             ReviewMentee reviewMentee4 = ReviewMentee.createReviewMentee(mentee2, mentor2, 5, "멘토님과의 멘토링 경험은 매우 인상적이었습니다. 금융 분야의 복잡성을 단순하게 전달하고 실제로 적용 가능한 솔루션을 제시하는 멘토님의 명쾌한 설명은 금융에 대한 나의 이해를 크게 향상시켰습니다. 가치 창출을 중요시하는 멘토님의 가치관은 돈을 통한 가치 창출에 대한 새로운 시각을 제공했습니다. 함께한 여정에서 멘토님의 열정과 지혜에 영감을 받아, 미래의 금융적인 목표에 대한 더 큰 자신감을 갖게 되었습니다", LocalDateTime.now());
             em.persist(reviewMentee4);
+            ReviewMentee reviewMentee7 = ReviewMentee.createReviewMentee(mentee2, mentor3, 5, "멘토님과의 멘토링 경험은 매우 인상적이었습니다. 금융 분야의 복잡성을 단순하게 전달하고 실제로 적용 가능한 솔루션을 제시하는 멘토님의 명쾌한 설명은 금융에 대한 나의 이해를 크게 향상시켰습니다. 가치 창출을 중요시하는 멘토님의 가치관은 돈을 통한 가치 창출에 대한 새로운 시각을 제공했습니다. 함께한 여정에서 멘토님의 열정과 지혜에 영감을 받아, 미래의 금융적인 목표에 대한 더 큰 자신감을 갖게 되었습니다", LocalDateTime.now());
+            em.persist(reviewMentee7);
+            ReviewMentee reviewMentee8 = ReviewMentee.createReviewMentee(mentee2, mentor4, 5, "멘토님과의 멘토링 경험은 매우 인상적이었습니다. 금융 분야의 복잡성을 단순하게 전달하고 실제로 적용 가능한 솔루션을 제시하는 멘토님의 명쾌한 설명은 금융에 대한 나의 이해를 크게 향상시켰습니다. 가치 창출을 중요시하는 멘토님의 가치관은 돈을 통한 가치 창출에 대한 새로운 시각을 제공했습니다. 함께한 여정에서 멘토님의 열정과 지혜에 영감을 받아, 미래의 금융적인 목표에 대한 더 큰 자신감을 갖게 되었습니다", LocalDateTime.now());
+            em.persist(reviewMentee8);
 
 
 
