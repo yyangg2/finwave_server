@@ -28,4 +28,8 @@ public class ChatRoomService {
         Long roomIdLong = Long.parseLong(roomId);
         return chatRoomRepository.findById(roomIdLong).orElse(null);
     }
+
+    public void saveChatRoom(ChatRoom newChatRoom) {
+        chatRoomRepository.save(newChatRoom);
+    }
 }

@@ -1,6 +1,7 @@
 package sanhak6.pinwave.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -8,10 +9,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sanhak6.pinwave.domain.ChatRoom;
 import sanhak6.pinwave.domain.Mentee;
 import sanhak6.pinwave.domain.Message;
@@ -59,5 +57,21 @@ public class ChatController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/createRoom/{roomId}")
+    public ResponseEntity<ChatRoom> createChatRoom(@PathVariable String roomId) {
+        // 채팅방이 존재하는지 확인
+        if (chatRoomService.getChatRoomById(roomId) != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build(); // 채팅방이 이미 존재
+        }
+
+        // 채팅방 생성
+        ChatRoom newChatRoom = new ChatRoom();
+        newChatRoom.setRoomId(roomId);
+        // db에 저장
+        chatRoomService.saveChatRoom(newChatRoom);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(newChatRoom);
     }
 }

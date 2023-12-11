@@ -20,5 +20,11 @@ public class ChatRoom {
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL)
     private List<Message> messages = new ArrayList<>();
 
+    @Column(name = "room_id", unique = true)
+    private String roomId;
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
 }
 

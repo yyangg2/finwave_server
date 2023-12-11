@@ -29,7 +29,30 @@ public class InitDb {
         initService.dbInit4();
         initService.dbInit5();
         initService.dbInit6();
-//        initService.dbInit7();
+        initService.dbInit7();
+        initService.dbInit8();
+        initService.dbInit9();
+        initService.dbInit10();
+        initService.dbInit11();
+        initService.dbInit12();
+        initService.dbInit13();
+        initService.dbInit14();
+        initService.dbInit15();
+        initService.dbInit16();
+        initService.dbInit17();
+        initService.dbInit18();
+        initService.dbInit19();
+        initService.dbInit20();
+        initService.dbInit21();
+//        initService.dbInit22();
+//        initService.dbInit23();
+//        initService.dbInit24();
+//        initService.dbInit25();
+//        initService.dbInit26();
+//        initService.dbInit27();
+//        initService.dbInit28();
+//        initService.dbInit29();
+//        initService.dbInit30();
     }
 
     @Component
@@ -110,7 +133,7 @@ public class InitDb {
 
         public void dbInit2() {
             Mentor mentor = createMentor("kau2@naver.com", "2222", "Holly", "01022223333", Gender.WOMAN,
-                    "대출", "부동산", "주식", "은행원", "1년", 4, 2, 3, 3,
+                    "대출",  "부동산", "주식", "은행원", "1년", 4, 2, 3, 3,
                     "안녕하세요, 저는 당신의 부동산 금융 및 주택 담보 대출 전문가인 Holly입니다." +
                             "저의 접근 방식은 모두 정확성과 명확성에 관한 것입니다. 왜냐하면 저는 감정적이거나 모호한 이야기를 좋아하는 사람이 아니기 때문입니다." +
                             "제 분야에서 15년 동안 쌓아온 탄탄한 경험을 바탕으로, 저는 제 전문성에 큰 자부심을 느끼며, 부동산 금융 및 주택 담보 대출 분야에서 충분한 정보를 바탕으로 의사 결정을 내리는 데 필요한 가장 정확하고 신뢰할 수 있는 통찰력을 제공하는 데 전념하고 있습니다.", LocalDateTime.now());
@@ -121,7 +144,7 @@ public class InitDb {
 
         public void dbInit3() {
             Mentee mentee = createMentee("kau20@naver.com", "4444", "Sarah", "01044445555", Gender.WOMAN,
-                    "주식", 22, "학생", 3, 1, 1, 1, "안녕하세요, 여러분! 저는 금융의 무한한 가능성을 탐험하는 여정에 도전하고 있는 Sarah입니다." +
+                    "주식", 22, "프리랜서", 3, 1, 1, 1, "안녕하세요, 여러분! 저는 금융의 무한한 가능성을 탐험하는 여정에 도전하고 있는 Sarah입니다." +
                             "제 성격은 호기심과 열정이 가득한데요, 금융 세계에서 새로운 지식을 습득하고 다양한 경험을 통해 성장하는 것에 큰 흥미를 느낍니다." +
                             "교육을 통한 재정적인 안정과 미래 투자에 대한 심사숙고가 제 가치 중 하나입니다. 재무적 기본을 탄탄히 다지고, 저축 습관을 꾸준히 기르며 투자의 세계로 나아가는 여정에서 끊임없는 호기심을 가지고 있습니다." +
                             "저는 여러분과 함께 배우고 성장하며, 이 재정적인 모험을 함께할 수 있어 기쁨을 느낍니다. 함께 여행하는 동안 서로에게 영감을 주고 받으며, 금융의 감동적인 순간들을 만들어 나가고 싶습니다.", LocalDateTime.now());
@@ -131,7 +154,7 @@ public class InitDb {
 
         public void dbInit4() {
             Mentee mentee = createMentee("kau21@naver.com", "5555", "Michel", "01055556666", Gender.MAN,
-                    "대출", 26, "학생", 4, 2, 2, 4, "안녕하세요! 지식의 즐거움과 전문성 강화에 열중하는 Michel입니다. 대학과 금융 분야에서의 탐험을 통해 나만의 진로를 발견하고 있는데요." +
+                    "대출", 26, "사업가", 4, 2, 2, 4, "안녕하세요! 지식의 즐거움과 전문성 강화에 열중하는 Michel입니다. 대학과 금융 분야에서의 탐험을 통해 나만의 진로를 발견하고 있는데요." +
                             "내가 빠져 있는 영역은 주식시장과 금융기술(Fintech)입니다. 특히 주식 시장의 다양한 흐름과 동향에 대한 탐구심을 가지고 있어, 기존 투자 전략을 현대적이고 효율적인 방식으로 혁신하고자 합니다. 또한 금융기술(Fintech)의 발전이 금융 분야에 미치는 영향에 대한 지속적인 연구를 통해, 디지털 금융 혁명에 어떻게 기여할 수 있을지에 대한 열망을 품고 있습니다." +
                             "학문적인 학습과 다양한 경험을 바탕으로, 금융의 다양한 측면을 이해하고자 끊임없이 노력하고 있습니다. 여러분과 함께 이 길에서 배우고 성장하며, 금융의 새로운 지평을 열어나가고 싶어졌습니다.", LocalDateTime.now());
             em.persist(mentee);
@@ -141,7 +164,7 @@ public class InitDb {
 
         public void dbInit5() {
             Mentee mentee = createMentee("kau22@naver.com", "6666", "Robert", "01066667777", Gender.MAN,
-                    "부동산", 27, "학생", 5, 3, 4, 3, "안녕하세요, 여러분! 저는 Robert라고 합니다. 현재 기업 금융과 투자 분야를 새롭게 탐험하고 있는 여행자입니다." +
+                    "부동산", 27, "대학원생", 5, 5, 4, 3, "안녕하세요, 여러분! 저는 Robert라고 합니다. 현재 기업 금융과 투자 분야를 새롭게 탐험하고 있는 여행자입니다." +
                             "제 성격은 학습에 대한 강한 의욕과 진로개발에 대한 열정이 두드러지는데요, 새로운 분야에서의 도전에 대한 열망이 항상 저를 움직이게 만듭니다." +
                             "기업금융과 투자 분야에서 보람 있는 경력을 쌓고 싶은 간절한 열망이 저를 이곳에 세우게 했습니다. 특히, 기업 재무, 재무 모델링, 그리고 투자 의사 결정의 복잡한 기술에 대한 깊은 관심을 가지고 있습니다." +
                             "대학생으로서 새로운 도전을 향해 나아가고자 여러분과 함께 배우고 성장하고 싶습니다. 이 자리에서 함께 복잡한 금융의 세계를 탐험하며, 서로에게 영감을 주고 받으며 발전해 나가는 여정을 함께하고 싶습니다.", LocalDateTime.now());
@@ -152,12 +175,148 @@ public class InitDb {
 
         public void dbInit6() {
             Mentee mentee = createMentee("kau23@naver.com", "6666", "Olivia", "01066667777", Gender.WOMAN,
-                    "부동산", 27, "학생", 5, 3, 4, 3, "안녕하세요! 저는 Olivia, 호기심 가득한 여행을 즐기며 끊임없이 새로운 것을 배우는 것에 즐거움을 느끼고 있어요." +
+                    "부동산", 30, "대학생", 5, 3, 4, 3, "안녕하세요! 저는 Olivia, 호기심 가득한 여행을 즐기며 끊임없이 새로운 것을 배우는 것에 즐거움을 느끼고 있어요." +
                             "현재 대학생활의 다채로운 경험을 즐기며, 기업금융과 투자 분야에서의 흥미로운 커리어를 꿈꾸고 있습니다. 기업 재무, 재무 모델링, 그리고 전략적 투자 결정에 필요한 복잡한 기술에 대한 이해와 열정을 가지고 있어요." +
                             "다양한 기회를 열렬히 환영하며, 금융계의 다양한 영역을 탐험하고 싶어졌습니다. 특히 부동산 투자 분야에 대한 흥미와 깊은 관심을 품고 있어, 부동산 시장의 동향과 투자 전략에 대한 지식을 향상시키고자 합니다.", LocalDateTime.now());
 
             em.persist(mentee);
 
+        }
+
+        public void dbInit7() {
+            Mentee mentee = createMentee("kau24@naver.com", "7777", "Sol", "01066667777", Gender.WOMAN,
+                    "부동산", 22, "대학생", 5, 3, 4, 3, "안녕하세요! 저는 Sol 입니다. 대학생이지만 부동산에 관심이 많아요.ㅇ", LocalDateTime.now());
+
+            em.persist(mentee);
+
+        }
+
+        public void dbInit8() {
+            Mentee mentee = createMentee("kau25@naver.com", "7777", "Emma", "01066667777", Gender.WOMAN,
+                    "부동산", 25, "대학원생", 5, 3, 4, 3, "안녕하세요! 여러분, Emma라고 합니다. 현재 대학원에서 금융 및 투자에 관한 연구를 진행 중이에요." +
+                            "금융 분야에서의 지식과 실무 경험을 통해 새로운 도전에 나설 수 있는 기회를 찾고 있습니다. 특히, 부동산 투자와 재무 모델링에 대한 깊은 흥미를 가지고 있어요." +
+                            "함께 배우고 성장하는 여정에 참여하며 서로에게 도움이 되고자 합니다.", LocalDateTime.now());
+
+            em.persist(mentee);
+        }
+
+        public void dbInit9() {
+            Mentee mentee = createMentee("kau26@naver.com", "7777", "Jackson", "01066667777", Gender.MAN,
+                    "부동산", 28, "대학원생", 5, 1, 4, 3, "안녕하세요! 저는 Jackson이라고 합니다. 현재 대학원에서 금융 및 투자에 관심을 가지고 연구하고 있습니다." +
+                            "금융 시장의 동향을 파악하고 투자 전략을 개발하는 데에 흥미가 있어 여러분과 함께 배우고 성장하고 싶습니다. 함께 멋진 경험을 쌓아 나가요!", LocalDateTime.now());
+
+            em.persist(mentee);
+        }
+
+        public void dbInit10() {
+            Mentee mentee = createMentee("kau27@naver.com", "8888", "Sophia", "01066667777", Gender.WOMAN,
+                    "부동산", 24, "대학생", 5, 1, 4, 3, "안녕하세요! 저는 Sophia입니다. 부동산 분야에 대한 지식을 높이고 싶어서 여러분과 함께 공부하고 성장하고 싶어졌어요." +
+                            "부동산 시장 동향과 투자 전략에 대한 공부를 통해 함께 발전해 나갈 수 있으면 좋겠습니다. 즐거운 학습의 시간이 되길 기대하고 있어요.", LocalDateTime.now());
+
+            em.persist(mentee);
+        }
+
+        //멘토
+        public void dbInit11() {
+            Mentor mentor = createMentor("kau28@naver.com", "3333", "John", "01033334444", Gender.MAN,
+                    "투자",  "주식", "채권", "투자은행원", "2년", 5, 4, 3, 4,
+                    "안녕하세요, 여러분! 저는 주식 및 채권 분야에서 2년간의 투자 은행 경력을 가진 John입니다." +
+                            "금융 분야에서의 전문 지식과 실무 경험을 공유하며 함께 성장하고 싶어졌습니다. 언제든지 투자와 금융에 관한 질문이 있으면 연락 주세요!", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        public void dbInit12() {
+            Mentor mentor = createMentor("kau29@naver.com", "4444", "Sophie", "01044445555", Gender.WOMAN,
+                    "대출",  "부동산", "자산관리", "은행매니저", "3년", 4, 3, 4, 3,
+                    "안녕하세요! 저는 은행에서 3년간 자산 관리 및 대출 업무를 수행한 Sophie입니다." +
+                            "부동산 및 자산 관리에 대한 풍부한 경험을 바탕으로 여러분의 궁금증을 해결하고 함께 성장하고 싶습니다. 언제든지 도움이 필요하면 말씀해주세요.", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        public void dbInit13() {
+            Mentor mentor = createMentor("kau30@naver.com", "5555", "William", "01055556666", Gender.MAN,
+                    "투자",  "주식", "펀드", "투자전문가", "5년", 5, 5, 4, 5,
+                    "안녕하세요! 저는 5년 간의 주식 및 펀드 투자 전문가로 활동한 William입니다." +
+                            "투자에 관한 다양한 전략과 노하우를 공유하며 함께 성장하고 싶습니다. 언제든지 투자와 금융에 대한 이야기를 나누어 보아요!", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        public void dbInit14() {
+            Mentor mentor = createMentor("kau31@naver.com", "6666", "Eva", "01066667777", Gender.WOMAN,
+                    "대출",  "부동산", "채무 관리", "은행관리자", "4년", 4, 3, 3, 4,
+                    "안녕하세요! 저는 은행에서 4년간 채무 관리 및 대출 업무를 담당한 Eva입니다." +
+                            "부동산 및 대출에 대한 전문 지식으로 여러분의 궁금증에 답하고 함께 발전하고 싶습니다. 언제든지 연락주세요!", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        public void dbInit15() {
+            Mentor mentor = createMentor("kau32@naver.com", "7777", "Andrew", "01077778888", Gender.MAN,
+                    "투자",  "주식", "채권", "자산관리사", "6년", 5, 4, 4, 5,
+                    "안녕하세요, 여러분! 저는 6년 간의 자산 관리사로 활동한 Andrew입니다." +
+                            "주식 및 채권 분야에서의 전문 지식과 풍부한 경험을 토대로 여러분과 함께 성장하고 지식을 나누고 싶어졌습니다. 언제든지 연락 주세요!", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        public void dbInit16() {
+            Mentor mentor = createMentor("kau33@naver.com", "8888", "Sophie", "01088889999", Gender.WOMAN,
+                    "대출",  "부동산", "자산운용", "은행관리자", "4년", 4, 3, 3, 4,
+                    "안녕하세요! 저는 은행에서 4년간 자산 운용 및 대출 업무를 담당한 Sophie입니다." +
+                            "부동산 및 자산 운용에 대한 풍부한 경험을 바탕으로 여러분의 궁금증에 답하고 함께 발전하고 싶습니다. 언제든지 연락주세요!", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        public void dbInit17() {
+            Mentor mentor = createMentor("kau34@naver.com", "9999", "Emily", "01099990000", Gender.WOMAN,
+                    "퇴직연금",  "재무분석", "투자전략", "재무설계사", "8년", 5, 4, 5, 5,
+                    "안녕하세요, 여러분! 저는 8년 동안 재무설계사로 활동한 Emily입니다." +
+                            "퇴직연금 및 투자 전략에 대한 전문 지식을 공유하며 여러분의 재무 상황을 돕고자 합니다. 언제든지 문의주세요!", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        public void dbInit18() {
+            Mentor mentor = createMentor("kau35@naver.com", "1234", "Elice", "01012341234", Gender.MAN,
+                    "세무상담",  "재무계획", "부채관리", "세무사", "7년", 4, 5, 4, 4,
+                    "안녕하세요, 여러분! 세무사 Elice입니다. 7년간 다양한 분야에서 세무상담을 해왔습니다." +
+                            "재무계획 및 부채관리에 대한 조언을 드리며 여러분의 세무적인 문제를 함께 해결해 나가고 싶어졌습니다. 문의하실 사항이 있으면 언제든 연락주세요!", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        // Mentor
+        public void dbInit19() {
+            Mentor mentor = createMentor("kau39@naver.com", "5678", "Grace", "01056785678", Gender.WOMAN,
+                    "퇴직연금",  "재무분석", "투자전략", "재무설계사", "8년", 5, 4, 5, 5,
+                    "안녕하세요, 여러분! 8년 동안 재무설계사로 활동한 Grace입니다." +
+                            "퇴직연금 및 투자 전략에 대한 풍부한 경험을 바탕으로 여러분의 재무 상황을 돕고자 합니다. 언제든지 연락주세요!", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        // Mentor
+        public void dbInit20() {
+            Mentor mentor = createMentor("kau40@naver.com", "4321", "Michael", "01043214321", Gender.MAN,
+                    "부동산",  "금융상품", "자산운용", "은행관리자", "10년", 5, 5, 4, 4,
+                    "안녕하세요! 10년간 은행에서 자산 운용과 관리 업무를 담당한 Michael입니다." +
+                            "부동산 및 금융상품에 대한 풍부한 경험을 공유하며 여러분의 궁금증에 답하고 함께 성장하고 싶습니다. 언제든지 연락주세요!", LocalDateTime.now());
+
+            em.persist(mentor);
+        }
+
+        // Mentor
+        public void dbInit21() {
+            Mentor mentor = createMentor("kau41@naver.com", "9876", "Lily", "01098769876", Gender.WOMAN,
+                    "재무분석",  "세무상담", "투자전략", "재무설계사", "6년", 4, 5, 5, 4,
+                    "안녕하세요, 여러분! 6년 간의 재무설계사 경험을 가진 Lily입니다." +
+                            "세무상담과 투자 전략에 대한 지식을 공유하며 여러분과 함께 성장하고 싶어졌습니다. 언제든지 문의주세요!", LocalDateTime.now());
+
+            em.persist(mentor);
         }
 
         private Mentee createMentee(String email, String password, String name, String phone, Gender gender, String goal, Integer age,
